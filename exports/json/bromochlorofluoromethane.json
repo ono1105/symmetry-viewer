@@ -1,0 +1,226 @@
+{
+  "schema_version": 7,
+  "source_kind": "molecule",
+  "render_data": {
+    "metadata": {
+      "mode": "molecule",
+      "source_file": "examples/molecules/bromochlorofluoromethane.xyz",
+      "formula": "HCBrClF",
+      "symmetry_label": "C1",
+      "operation_count": 1,
+      "display_formula": "CHBrClF",
+      "point_group_label": "C1",
+      "lattice_parameters": null,
+      "space_group_generators": [],
+      "point_group_generators": [
+        "identity only"
+      ],
+      "warnings": []
+    },
+    "atoms": [
+      {
+        "index": 0,
+        "element": "C",
+        "atomic_number": 6,
+        "cart": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "frac": null,
+        "asymmetric_index": null,
+        "generation_operation_index": null
+      },
+      {
+        "index": 1,
+        "element": "Br",
+        "atomic_number": 35,
+        "cart": [
+          1.135071,
+          1.135071,
+          1.135071
+        ],
+        "frac": null,
+        "asymmetric_index": null,
+        "generation_operation_index": null
+      },
+      {
+        "index": 2,
+        "element": "Cl",
+        "atomic_number": 17,
+        "cart": [
+          1.015559,
+          -1.015559,
+          -1.015559
+        ],
+        "frac": null,
+        "asymmetric_index": null,
+        "generation_operation_index": null
+      },
+      {
+        "index": 3,
+        "element": "F",
+        "atomic_number": 9,
+        "cart": [
+          -0.795589,
+          0.795589,
+          -0.795589
+        ],
+        "frac": null,
+        "asymmetric_index": null,
+        "generation_operation_index": null
+      },
+      {
+        "index": 4,
+        "element": "H",
+        "atomic_number": 1,
+        "cart": [
+          -0.62758,
+          -0.62758,
+          0.62758
+        ],
+        "frac": null,
+        "asymmetric_index": null,
+        "generation_operation_index": null
+      }
+    ],
+    "asymmetric_atoms": [],
+    "operations": [
+      {
+        "index": 0,
+        "label": "0: E identity",
+        "kind": "identity",
+        "order": 1,
+        "angle_deg": null,
+        "symbol": "E",
+        "matrix_frac": null,
+        "translation_frac": null,
+        "matrix_cart": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "translation_cart": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "axes": [],
+    "planes": [],
+    "centers": [],
+    "unit_cell": null,
+    "bounds_min": [
+      -0.795589,
+      -1.015559,
+      -1.015559
+    ],
+    "bounds_max": [
+      1.135071,
+      1.135071,
+      1.135071
+    ]
+  },
+  "atom_mappings": {
+    "mode": "molecule",
+    "complete": true,
+    "incomplete_operation_indices": [],
+    "mappings": [
+      {
+        "mode": "molecule",
+        "operation_index": 0,
+        "operation_kind": "identity",
+        "complete": true,
+        "atom_to_atom": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "max_distance": 0.0,
+        "unmatched_atoms": [],
+        "entries": [
+          {
+            "source_atom": 0,
+            "target_atom": 0,
+            "distance": 0.0,
+            "transformed_cart": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "transformed_frac": null,
+            "wrapped_frac": null,
+            "animation_frac": null
+          },
+          {
+            "source_atom": 1,
+            "target_atom": 1,
+            "distance": 0.0,
+            "transformed_cart": [
+              1.135071,
+              1.135071,
+              1.135071
+            ],
+            "transformed_frac": null,
+            "wrapped_frac": null,
+            "animation_frac": null
+          },
+          {
+            "source_atom": 2,
+            "target_atom": 2,
+            "distance": 0.0,
+            "transformed_cart": [
+              1.015559,
+              -1.015559,
+              -1.015559
+            ],
+            "transformed_frac": null,
+            "wrapped_frac": null,
+            "animation_frac": null
+          },
+          {
+            "source_atom": 3,
+            "target_atom": 3,
+            "distance": 0.0,
+            "transformed_cart": [
+              -0.795589,
+              0.795589,
+              -0.795589
+            ],
+            "transformed_frac": null,
+            "wrapped_frac": null,
+            "animation_frac": null
+          },
+          {
+            "source_atom": 4,
+            "target_atom": 4,
+            "distance": 0.0,
+            "transformed_cart": [
+              -0.62758,
+              -0.62758,
+              0.62758
+            ],
+            "transformed_frac": null,
+            "wrapped_frac": null,
+            "animation_frac": null
+          }
+        ]
+      }
+    ]
+  }
+}

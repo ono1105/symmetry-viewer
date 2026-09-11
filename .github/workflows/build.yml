@@ -1,0 +1,65 @@
+# Builds the Windows and Linux versions, checks each one through its HTTP API
+# (packaging/smoke_test.py), and on a version tag (v1.0.0, ...) publishes both on
+# the repository's Releases page.
+#
+# Kept in the development repository as packaging/release/build.yml and copied
+# to .github/workflows/ by packaging/export_release_repo.sh.
+name: build
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: packaging/build_linux.sh
+      - name: Smoke test
+        run: build/venv/bin/python packaging/smoke_test.py dist/symmetry-viewer/symmetry-viewer
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux
+          path: dist/symmetry-viewer-linux-x86_64.tar.gz
+          if-no-files-found: error
+
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        shell: pwsh
+        run: ./packaging/build_windows.ps1
+      - name: Smoke test
+        shell: pwsh
+        run: build\venv\Scripts\python.exe packaging\smoke_test.py dist\symmetry-viewer\symmetry-viewer.exe
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows
+          path: dist/symmetry-viewer-windows-x64.zip
+          if-no-files-found: error
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [linux, windows]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >
+          gh release create "$GITHUB_REF_NAME" artifacts/*
+          --title "symmetry-viewer $GITHUB_REF_NAME"
+          --notes-file .github/release-notes.md

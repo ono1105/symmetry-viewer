@@ -1,0 +1,1678 @@
+{
+  "schema_version": 7,
+  "source_kind": "crystal",
+  "render_data": {
+    "metadata": {
+      "mode": "crystal",
+      "source_file": "examples/cif/BaTiO3.cif",
+      "formula": "BaTiO3",
+      "symmetry_label": "160 R3m",
+      "operation_count": 6,
+      "display_formula": "BaTiO3",
+      "point_group_label": "3m",
+      "lattice_parameters": {
+        "a": 4.0043,
+        "b": 4.0043,
+        "c": 4.0043,
+        "alpha": 89.855,
+        "beta": 89.855,
+        "gamma": 89.855
+      },
+      "space_group_generators": [
+        "C3",
+        "σ"
+      ],
+      "point_group_generators": [
+        "C3",
+        "σ"
+      ],
+      "warnings": [
+        "CIF contains an empty _symmetry_equiv_pos_as_xyz loop. Because the lattice is a rhombohedral primitive cell, the loader used the CIF-declared space-group number 160 only to expand atom_site positions with R-setting operations. The final reported symmetry is still determined from the expanded atomic positions by spglib.",
+        "Original CIF parser error: ZeroDivisionError: division by zero"
+      ]
+    },
+    "atoms": [
+      {
+        "index": 0,
+        "element": "Ba",
+        "atomic_number": 56,
+        "cart": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "frac": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "asymmetric_index": 0,
+        "generation_operation_index": 0
+      },
+      {
+        "index": 1,
+        "element": "Ti",
+        "atomic_number": 22,
+        "cart": [
+          1.955010532823196,
+          1.9500816419784812,
+          1.95996440266706
+        ],
+        "frac": [
+          0.487,
+          0.487,
+          0.487
+        ],
+        "asymmetric_index": 1,
+        "generation_operation_index": 0
+      },
+      {
+        "index": 2,
+        "element": "O",
+        "atomic_number": 8,
+        "cart": [
+          2.0441301094734525,
+          2.0389765340768844,
+          0.08600151254223196
+        ],
+        "frac": [
+          0.5092,
+          0.5092,
+          0.0189
+        ],
+        "asymmetric_index": 2,
+        "generation_operation_index": 0
+      },
+      {
+        "index": 3,
+        "element": "O",
+        "atomic_number": 8,
+        "cart": [
+          0.08082810655382931,
+          2.0389765340768844,
+          2.0443412097314932
+        ],
+        "frac": [
+          0.0189,
+          0.5092,
+          0.5092
+        ],
+        "asymmetric_index": 2,
+        "generation_operation_index": 1
+      },
+      {
+        "index": 4,
+        "element": "O",
+        "atomic_number": 8,
+        "cart": [
+          2.0391740749326797,
+          0.075680786516208,
+          2.0443412097314932
+        ],
+        "frac": [
+          0.5092,
+          0.0189,
+          0.5092
+        ],
+        "asymmetric_index": 2,
+        "generation_operation_index": 2
+      }
+    ],
+    "asymmetric_atoms": [
+      {
+        "index": 0,
+        "label": "Ba",
+        "element": "Ba",
+        "atomic_number": 56,
+        "cart": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "frac": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "index": 1,
+        "label": "Ti",
+        "element": "Ti",
+        "atomic_number": 22,
+        "cart": [
+          1.955010532823196,
+          1.9500816419784812,
+          1.95996440266706
+        ],
+        "frac": [
+          0.487,
+          0.487,
+          0.487
+        ]
+      },
+      {
+        "index": 2,
+        "label": "O",
+        "element": "O",
+        "atomic_number": 8,
+        "cart": [
+          2.0441301094734525,
+          2.0389765340768844,
+          0.08600151254223196
+        ],
+        "frac": [
+          0.5092,
+          0.5092,
+          0.0189
+        ]
+      }
+    ],
+    "operations": [
+      {
+        "index": 0,
+        "label": "0: 1 identity",
+        "kind": "identity",
+        "order": 1,
+        "angle_deg": 0.0,
+        "symbol": "1",
+        "matrix_frac": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "translation_frac": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "matrix_cart": [
+          [
+            1.0,
+            -9.886552531312983e-20,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            2.3536214619558195e-19,
+            -1.118857574611977e-19,
+            1.0
+          ]
+        ],
+        "translation_cart": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "index": 1,
+        "label": "1: 3 rotation_3",
+        "kind": "rotation_3",
+        "order": 3,
+        "angle_deg": 120.00000000000001,
+        "symbol": "3",
+        "matrix_frac": [
+          [
+            0.0,
+            0.0,
+            1.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ]
+        ],
+        "translation_frac": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "matrix_cart": [
+          [
+            -6.3884002957046175e-06,
+            -0.002530716650769382,
+            0.9999967977110835
+          ],
+          [
+            0.9999968138580119,
+            -0.0025243363137219493,
+            0.0
+          ],
+          [
+            0.0025243282300678265,
+            0.9999936115792984,
+            0.002530724714017654
+          ]
+        ],
+        "translation_cart": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "index": 2,
+        "label": "2: 3 rotation_3",
+        "kind": "rotation_3",
+        "order": 3,
+        "angle_deg": 120.00000000000001,
+        "symbol": "3",
+        "matrix_frac": [
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "translation_frac": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "matrix_cart": [
+          [
+            -6.3884002956283574e-06,
+            0.9999968138580119,
+            0.00252432823006775
+          ],
+          [
+            -0.0025307166507693817,
+            -0.0025243363137220256,
+            0.9999936115792983
+          ],
+          [
+            0.9999967977110837,
+            7.5980808749723e-17,
+            0.002530724714017654
+          ]
+        ],
+        "translation_cart": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "index": 3,
+        "label": "3: m mirror",
+        "kind": "mirror",
+        "order": 2,
+        "angle_deg": null,
+        "symbol": "m",
+        "matrix_frac": [
+          [
+            0.0,
+            0.0,
+            1.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "translation_frac": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "matrix_cart": [
+          [
+            -0.0025307247140176534,
+            -7.653416359103661e-17,
+            0.9999967977110835
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.9999967977110837,
+            7.5980808749723e-17,
+            0.002530724714017654
+          ]
+        ],
+        "translation_cart": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "index": 4,
+        "label": "4: m mirror",
+        "kind": "mirror",
+        "order": 2,
+        "angle_deg": null,
+        "symbol": "m",
+        "matrix_frac": [
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "translation_frac": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "matrix_cart": [
+          [
+            0.002524336313721949,
+            0.9999968138580119,
+            0.0
+          ],
+          [
+            0.9999968138580119,
+            -0.0025243363137219493,
+            0.0
+          ],
+          [
+            2.3536214619558195e-19,
+            -1.118857574611977e-19,
+            1.0
+          ]
+        ],
+        "translation_cart": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "index": 5,
+        "label": "5: m mirror",
+        "kind": "mirror",
+        "order": 2,
+        "angle_deg": null,
+        "symbol": "m",
+        "matrix_frac": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ]
+        ],
+        "translation_frac": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "matrix_cart": [
+          [
+            0.9999936115997043,
+            -0.0025307166507693058,
+            0.00252432823006775
+          ],
+          [
+            -0.0025307166507693817,
+            -0.0025243363137220256,
+            0.9999936115792983
+          ],
+          [
+            0.0025243282300678265,
+            0.9999936115792984,
+            0.002530724714017654
+          ]
+        ],
+        "translation_cart": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "axes": [
+      {
+        "point_cart": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "direction_cart": [
+          0.5773465808332139,
+          0.5758909987641052,
+          0.5788095396092557
+        ],
+        "label": "3x2",
+        "operation_indices": [
+          1,
+          2
+        ]
+      },
+      {
+        "point_cart": [
+          0.006738778354440196,
+          2.6695162792313236,
+          1.3415225206482269
+        ],
+        "direction_cart": [
+          0.5773465808332139,
+          0.5758909987641052,
+          0.5788095396092557
+        ],
+        "label": "3x2",
+        "operation_indices": [
+          1,
+          2
+        ]
+      },
+      {
+        "point_cart": [
+          0.003369389177220099,
+          1.334758139615662,
+          2.6729112603241134
+        ],
+        "direction_cart": [
+          0.5773465808332139,
+          0.5758909987641052,
+          0.5788095396092557
+        ],
+        "label": "3x2",
+        "operation_indices": [
+          1,
+          2
+        ]
+      }
+    ],
+    "planes": [
+      {
+        "point_cart": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "basis1_cart": [
+          -0.7062114680766598,
+          0.0,
+          -0.708000962115878
+        ],
+        "basis2_cart": [
+          0.00252432823006775,
+          0.9999936115792984,
+          0.002530724714017654
+        ],
+        "normal_cart": [
+          0.708000962115878,
+          5.337746190299755e-17,
+          -0.7062114680766598
+        ],
+        "label": "m",
+        "operation_indices": [
+          3
+        ]
+      },
+      {
+        "point_cart": [
+          3.0032153828058674,
+          0.0,
+          1.008675335729254
+        ],
+        "basis1_cart": [
+          -0.7062114680766598,
+          0.0,
+          -0.708000962115878
+        ],
+        "basis2_cart": [
+          0.00252432823006775,
+          0.9999936115792984,
+          0.002530724714017654
+        ],
+        "normal_cart": [
+          0.708000962115878,
+          5.337746190299755e-17,
+          -0.7062114680766598
+        ],
+        "label": "m",
+        "operation_indices": [
+          3
+        ]
+      },
+      {
+        "point_cart": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "basis1_cart": [
+          0.7079941833306925,
+          0.706209217986649,
+          0.0035744650776384857
+        ],
+        "basis2_cart": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "normal_cart": [
+          0.7062137295770587,
+          -0.7079987063242847,
+          0.0
+        ],
+        "label": "m",
+        "operation_indices": [
+          4
+        ]
+      },
+      {
+        "point_cart": [
+          3.0057424246887825,
+          1.0010686047117445,
+          0.010133780972340883
+        ],
+        "basis1_cart": [
+          0.7079941833306925,
+          0.706209217986649,
+          0.0035744650776384857
+        ],
+        "basis2_cart": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "normal_cart": [
+          0.7062137295770587,
+          -0.7079987063242847,
+          0.0
+        ],
+        "label": "m",
+        "operation_indices": [
+          4
+        ]
+      },
+      {
+        "point_cart": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "basis1_cart": [
+          0.0017827152540328011,
+          0.7062092179866488,
+          0.708000962115878
+        ],
+        "basis2_cart": [
+          0.9999967977110835,
+          0.0,
+          0.002530724714017654
+        ],
+        "normal_cart": [
+          0.001787232538819242,
+          0.707998706324285,
+          -0.7062114680766597
+        ],
+        "label": "m",
+        "operation_indices": [
+          5
+        ]
+      },
+      {
+        "point_cart": [
+          0.007581125648745216,
+          3.003205814135237,
+          1.008675335729254
+        ],
+        "basis1_cart": [
+          0.0017827152540328011,
+          0.7062092179866488,
+          0.708000962115878
+        ],
+        "basis2_cart": [
+          0.9999967977110835,
+          0.0,
+          0.002530724714017654
+        ],
+        "normal_cart": [
+          0.001787232538819242,
+          0.707998706324285,
+          -0.7062114680766597
+        ],
+        "label": "m",
+        "operation_indices": [
+          5
+        ]
+      }
+    ],
+    "centers": [],
+    "unit_cell": {
+      "lattice": [
+        [
+          4.004287177074492,
+          0.0,
+          0.01013378097234089
+        ],
+        [
+          0.010108167531660292,
+          4.004274418846984,
+          0.01013378097234089
+        ],
+        [
+          0.0,
+          0.0,
+          4.0043
+        ]
+      ],
+      "vertices_cart": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          4.004287177074492,
+          0.0,
+          0.01013378097234089
+        ],
+        [
+          0.010108167531660292,
+          4.004274418846984,
+          0.01013378097234089
+        ],
+        [
+          0.0,
+          0.0,
+          4.0043
+        ],
+        [
+          4.014395344606152,
+          4.004274418846984,
+          0.02026756194468178
+        ],
+        [
+          4.004287177074492,
+          0.0,
+          4.0144337809723405
+        ],
+        [
+          0.010108167531660292,
+          4.004274418846984,
+          4.0144337809723405
+        ],
+        [
+          4.014395344606152,
+          4.004274418846984,
+          4.024567561944681
+        ]
+      ],
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          4,
+          7
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    "bounds_min": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "bounds_max": [
+      4.014395344606152,
+      4.004274418846984,
+      4.024567561944681
+    ]
+  },
+  "atom_mappings": {
+    "mode": "crystal",
+    "complete": true,
+    "incomplete_operation_indices": [],
+    "mappings": [
+      {
+        "mode": "crystal",
+        "operation_index": 0,
+        "operation_kind": "identity",
+        "complete": true,
+        "atom_to_atom": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "max_distance": 0.0,
+        "unmatched_atoms": [],
+        "entries": [
+          {
+            "source_atom": 0,
+            "target_atom": 0,
+            "distance": 0.0,
+            "transformed_cart": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "transformed_frac": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "wrapped_frac": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "animation_frac": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "source_atom": 1,
+            "target_atom": 1,
+            "distance": 0.0,
+            "transformed_cart": [
+              1.955010532823196,
+              1.9500816419784812,
+              1.95996440266706
+            ],
+            "transformed_frac": [
+              0.487,
+              0.487,
+              0.487
+            ],
+            "wrapped_frac": [
+              0.487,
+              0.487,
+              0.487
+            ],
+            "animation_frac": [
+              0.487,
+              0.487,
+              0.487
+            ]
+          },
+          {
+            "source_atom": 2,
+            "target_atom": 2,
+            "distance": 0.0,
+            "transformed_cart": [
+              2.0441301094734525,
+              2.0389765340768844,
+              0.08600151254223196
+            ],
+            "transformed_frac": [
+              0.5092,
+              0.5092,
+              0.0189
+            ],
+            "wrapped_frac": [
+              0.5092,
+              0.5092,
+              0.0189
+            ],
+            "animation_frac": [
+              0.5092,
+              0.5092,
+              0.0189
+            ]
+          },
+          {
+            "source_atom": 3,
+            "target_atom": 3,
+            "distance": 0.0,
+            "transformed_cart": [
+              0.08082810655382931,
+              2.0389765340768844,
+              2.0443412097314932
+            ],
+            "transformed_frac": [
+              0.0189,
+              0.5092,
+              0.5092
+            ],
+            "wrapped_frac": [
+              0.0189,
+              0.5092,
+              0.5092
+            ],
+            "animation_frac": [
+              0.0189,
+              0.5092,
+              0.5092
+            ]
+          },
+          {
+            "source_atom": 4,
+            "target_atom": 4,
+            "distance": 0.0,
+            "transformed_cart": [
+              2.0391740749326797,
+              0.075680786516208,
+              2.0443412097314932
+            ],
+            "transformed_frac": [
+              0.5092,
+              0.0189,
+              0.5092
+            ],
+            "wrapped_frac": [
+              0.5092,
+              0.0189,
+              0.5092
+            ],
+            "animation_frac": [
+              0.5092,
+              0.0189,
+              0.5092
+            ]
+          }
+        ]
+      },
+      {
+        "mode": "crystal",
+        "operation_index": 1,
+        "operation_kind": "rotation_3",
+        "complete": true,
+        "atom_to_atom": [
+          0,
+          1,
+          3,
+          4,
+          2
+        ],
+        "max_distance": 0.0,
+        "unmatched_atoms": [],
+        "entries": [
+          {
+            "source_atom": 0,
+            "target_atom": 0,
+            "distance": 0.0,
+            "transformed_cart": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "transformed_frac": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "wrapped_frac": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "animation_frac": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "source_atom": 1,
+            "target_atom": 1,
+            "distance": 0.0,
+            "transformed_cart": [
+              1.955010532823196,
+              1.9500816419784812,
+              1.95996440266706
+            ],
+            "transformed_frac": [
+              0.487,
+              0.487,
+              0.487
+            ],
+            "wrapped_frac": [
+              0.487,
+              0.487,
+              0.487
+            ],
+            "animation_frac": [
+              0.487,
+              0.487,
+              0.487
+            ]
+          },
+          {
+            "source_atom": 2,
+            "target_atom": 3,
+            "distance": 0.0,
+            "transformed_cart": [
+              0.08082810655382931,
+              2.0389765340768844,
+              2.0443412097314932
+            ],
+            "transformed_frac": [
+              0.0189,
+              0.5092,
+              0.5092
+            ],
+            "wrapped_frac": [
+              0.0189,
+              0.5092,
+              0.5092
+            ],
+            "animation_frac": [
+              0.0189,
+              0.5092,
+              0.5092
+            ]
+          },
+          {
+            "source_atom": 3,
+            "target_atom": 4,
+            "distance": 0.0,
+            "transformed_cart": [
+              2.0391740749326797,
+              0.075680786516208,
+              2.0443412097314932
+            ],
+            "transformed_frac": [
+              0.5092,
+              0.0189,
+              0.5092
+            ],
+            "wrapped_frac": [
+              0.5092,
+              0.0189,
+              0.5092
+            ],
+            "animation_frac": [
+              0.5092,
+              0.0189,
+              0.5092
+            ]
+          },
+          {
+            "source_atom": 4,
+            "target_atom": 2,
+            "distance": 0.0,
+            "transformed_cart": [
+              2.0441301094734525,
+              2.0389765340768844,
+              0.08600151254223196
+            ],
+            "transformed_frac": [
+              0.5092,
+              0.5092,
+              0.0189
+            ],
+            "wrapped_frac": [
+              0.5092,
+              0.5092,
+              0.0189
+            ],
+            "animation_frac": [
+              0.5092,
+              0.5092,
+              0.0189
+            ]
+          }
+        ]
+      },
+      {
+        "mode": "crystal",
+        "operation_index": 2,
+        "operation_kind": "rotation_3",
+        "complete": true,
+        "atom_to_atom": [
+          0,
+          1,
+          4,
+          2,
+          3
+        ],
+        "max_distance": 0.0,
+        "unmatched_atoms": [],
+        "entries": [
+          {
+            "source_atom": 0,
+            "target_atom": 0,
+            "distance": 0.0,
+            "transformed_cart": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "transformed_frac": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "wrapped_frac": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "animation_frac": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "source_atom": 1,
+            "target_atom": 1,
+            "distance": 0.0,
+            "transformed_cart": [
+              1.955010532823196,
+              1.9500816419784812,
+              1.95996440266706
+            ],
+            "transformed_frac": [
+              0.487,
+              0.487,
+              0.487
+            ],
+            "wrapped_frac": [
+              0.487,
+              0.487,
+              0.487
+            ],
+            "animation_frac": [
+              0.487,
+              0.487,
+              0.487
+            ]
+          },
+          {
+            "source_atom": 2,
+            "target_atom": 4,
+            "distance": 0.0,
+            "transformed_cart": [
+              2.0391740749326797,
+              0.075680786516208,
+              2.0443412097314932
+            ],
+            "transformed_frac": [
+              0.5092,
+              0.0189,
+              0.5092
+            ],
+            "wrapped_frac": [
+              0.5092,
+              0.0189,
+              0.5092
+            ],
+            "animation_frac": [
+              0.5092,
+              0.0189,
+              0.5092
+            ]
+          },
+          {
+            "source_atom": 3,
+            "target_atom": 2,
+            "distance": 0.0,
+            "transformed_cart": [
+              2.0441301094734525,
+              2.0389765340768844,
+              0.08600151254223196
+            ],
+            "transformed_frac": [
+              0.5092,
+              0.5092,
+              0.0189
+            ],
+            "wrapped_frac": [
+              0.5092,
+              0.5092,
+              0.0189
+            ],
+            "animation_frac": [
+              0.5092,
+              0.5092,
+              0.0189
+            ]
+          },
+          {
+            "source_atom": 4,
+            "target_atom": 3,
+            "distance": 0.0,
+            "transformed_cart": [
+              0.08082810655382931,
+              2.0389765340768844,
+              2.0443412097314932
+            ],
+            "transformed_frac": [
+              0.0189,
+              0.5092,
+              0.5092
+            ],
+            "wrapped_frac": [
+              0.0189,
+              0.5092,
+              0.5092
+            ],
+            "animation_frac": [
+              0.0189,
+              0.5092,
+              0.5092
+            ]
+          }
+        ]
+      },
+      {
+        "mode": "crystal",
+        "operation_index": 3,
+        "operation_kind": "mirror",
+        "complete": true,
+        "atom_to_atom": [
+          0,
+          1,
+          3,
+          2,
+          4
+        ],
+        "max_distance": 0.0,
+        "unmatched_atoms": [],
+        "entries": [
+          {
+            "source_atom": 0,
+            "target_atom": 0,
+            "distance": 0.0,
+            "transformed_cart": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "transformed_frac": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "wrapped_frac": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "animation_frac": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "source_atom": 1,
+            "target_atom": 1,
+            "distance": 0.0,
+            "transformed_cart": [
+              1.955010532823196,
+              1.9500816419784812,
+              1.95996440266706
+            ],
+            "transformed_frac": [
+              0.487,
+              0.487,
+              0.487
+            ],
+            "wrapped_frac": [
+              0.487,
+              0.487,
+              0.487
+            ],
+            "animation_frac": [
+              0.487,
+              0.487,
+              0.487
+            ]
+          },
+          {
+            "source_atom": 2,
+            "target_atom": 3,
+            "distance": 0.0,
+            "transformed_cart": [
+              0.08082810655382931,
+              2.0389765340768844,
+              2.0443412097314932
+            ],
+            "transformed_frac": [
+              0.0189,
+              0.5092,
+              0.5092
+            ],
+            "wrapped_frac": [
+              0.0189,
+              0.5092,
+              0.5092
+            ],
+            "animation_frac": [
+              0.0189,
+              0.5092,
+              0.5092
+            ]
+          },
+          {
+            "source_atom": 3,
+            "target_atom": 2,
+            "distance": 0.0,
+            "transformed_cart": [
+              2.0441301094734525,
+              2.0389765340768844,
+              0.08600151254223196
+            ],
+            "transformed_frac": [
+              0.5092,
+              0.5092,
+              0.0189
+            ],
+            "wrapped_frac": [
+              0.5092,
+              0.5092,
+              0.0189
+            ],
+            "animation_frac": [
+              0.5092,
+              0.5092,
+              0.0189
+            ]
+          },
+          {
+            "source_atom": 4,
+            "target_atom": 4,
+            "distance": 0.0,
+            "transformed_cart": [
+              2.0391740749326797,
+              0.075680786516208,
+              2.0443412097314932
+            ],
+            "transformed_frac": [
+              0.5092,
+              0.0189,
+              0.5092
+            ],
+            "wrapped_frac": [
+              0.5092,
+              0.0189,
+              0.5092
+            ],
+            "animation_frac": [
+              0.5092,
+              0.0189,
+              0.5092
+            ]
+          }
+        ]
+      },
+      {
+        "mode": "crystal",
+        "operation_index": 4,
+        "operation_kind": "mirror",
+        "complete": true,
+        "atom_to_atom": [
+          0,
+          1,
+          2,
+          4,
+          3
+        ],
+        "max_distance": 0.0,
+        "unmatched_atoms": [],
+        "entries": [
+          {
+            "source_atom": 0,
+            "target_atom": 0,
+            "distance": 0.0,
+            "transformed_cart": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "transformed_frac": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "wrapped_frac": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "animation_frac": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "source_atom": 1,
+            "target_atom": 1,
+            "distance": 0.0,
+            "transformed_cart": [
+              1.955010532823196,
+              1.9500816419784812,
+              1.95996440266706
+            ],
+            "transformed_frac": [
+              0.487,
+              0.487,
+              0.487
+            ],
+            "wrapped_frac": [
+              0.487,
+              0.487,
+              0.487
+            ],
+            "animation_frac": [
+              0.487,
+              0.487,
+              0.487
+            ]
+          },
+          {
+            "source_atom": 2,
+            "target_atom": 2,
+            "distance": 0.0,
+            "transformed_cart": [
+              2.0441301094734525,
+              2.0389765340768844,
+              0.08600151254223196
+            ],
+            "transformed_frac": [
+              0.5092,
+              0.5092,
+              0.0189
+            ],
+            "wrapped_frac": [
+              0.5092,
+              0.5092,
+              0.0189
+            ],
+            "animation_frac": [
+              0.5092,
+              0.5092,
+              0.0189
+            ]
+          },
+          {
+            "source_atom": 3,
+            "target_atom": 4,
+            "distance": 0.0,
+            "transformed_cart": [
+              2.0391740749326797,
+              0.075680786516208,
+              2.0443412097314932
+            ],
+            "transformed_frac": [
+              0.5092,
+              0.0189,
+              0.5092
+            ],
+            "wrapped_frac": [
+              0.5092,
+              0.0189,
+              0.5092
+            ],
+            "animation_frac": [
+              0.5092,
+              0.0189,
+              0.5092
+            ]
+          },
+          {
+            "source_atom": 4,
+            "target_atom": 3,
+            "distance": 0.0,
+            "transformed_cart": [
+              0.08082810655382931,
+              2.0389765340768844,
+              2.0443412097314932
+            ],
+            "transformed_frac": [
+              0.0189,
+              0.5092,
+              0.5092
+            ],
+            "wrapped_frac": [
+              0.0189,
+              0.5092,
+              0.5092
+            ],
+            "animation_frac": [
+              0.0189,
+              0.5092,
+              0.5092
+            ]
+          }
+        ]
+      },
+      {
+        "mode": "crystal",
+        "operation_index": 5,
+        "operation_kind": "mirror",
+        "complete": true,
+        "atom_to_atom": [
+          0,
+          1,
+          4,
+          3,
+          2
+        ],
+        "max_distance": 0.0,
+        "unmatched_atoms": [],
+        "entries": [
+          {
+            "source_atom": 0,
+            "target_atom": 0,
+            "distance": 0.0,
+            "transformed_cart": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "transformed_frac": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "wrapped_frac": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "animation_frac": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "source_atom": 1,
+            "target_atom": 1,
+            "distance": 0.0,
+            "transformed_cart": [
+              1.955010532823196,
+              1.9500816419784812,
+              1.95996440266706
+            ],
+            "transformed_frac": [
+              0.487,
+              0.487,
+              0.487
+            ],
+            "wrapped_frac": [
+              0.487,
+              0.487,
+              0.487
+            ],
+            "animation_frac": [
+              0.487,
+              0.487,
+              0.487
+            ]
+          },
+          {
+            "source_atom": 2,
+            "target_atom": 4,
+            "distance": 0.0,
+            "transformed_cart": [
+              2.0391740749326797,
+              0.075680786516208,
+              2.0443412097314932
+            ],
+            "transformed_frac": [
+              0.5092,
+              0.0189,
+              0.5092
+            ],
+            "wrapped_frac": [
+              0.5092,
+              0.0189,
+              0.5092
+            ],
+            "animation_frac": [
+              0.5092,
+              0.0189,
+              0.5092
+            ]
+          },
+          {
+            "source_atom": 3,
+            "target_atom": 3,
+            "distance": 0.0,
+            "transformed_cart": [
+              0.08082810655382931,
+              2.0389765340768844,
+              2.0443412097314932
+            ],
+            "transformed_frac": [
+              0.0189,
+              0.5092,
+              0.5092
+            ],
+            "wrapped_frac": [
+              0.0189,
+              0.5092,
+              0.5092
+            ],
+            "animation_frac": [
+              0.0189,
+              0.5092,
+              0.5092
+            ]
+          },
+          {
+            "source_atom": 4,
+            "target_atom": 2,
+            "distance": 0.0,
+            "transformed_cart": [
+              2.0441301094734525,
+              2.0389765340768844,
+              0.08600151254223196
+            ],
+            "transformed_frac": [
+              0.5092,
+              0.5092,
+              0.0189
+            ],
+            "wrapped_frac": [
+              0.5092,
+              0.5092,
+              0.0189
+            ],
+            "animation_frac": [
+              0.5092,
+              0.5092,
+              0.0189
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

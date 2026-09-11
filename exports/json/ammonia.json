@@ -1,0 +1,798 @@
+{
+  "schema_version": 7,
+  "source_kind": "molecule",
+  "render_data": {
+    "metadata": {
+      "mode": "molecule",
+      "source_file": "examples/molecules/ammonia.xyz",
+      "formula": "H3N",
+      "symmetry_label": "C3v",
+      "operation_count": 6,
+      "display_formula": "NH3",
+      "point_group_label": "C3v",
+      "lattice_parameters": null,
+      "space_group_generators": [],
+      "point_group_generators": [
+        "C3",
+        "σ",
+        "C3"
+      ],
+      "warnings": []
+    },
+    "atoms": [
+      {
+        "index": 0,
+        "element": "N",
+        "atomic_number": 7,
+        "cart": [
+          0.0,
+          0.0,
+          0.116
+        ],
+        "frac": null,
+        "asymmetric_index": null,
+        "generation_operation_index": null
+      },
+      {
+        "index": 1,
+        "element": "H",
+        "atomic_number": 1,
+        "cart": [
+          0.9377,
+          0.0,
+          -0.271
+        ],
+        "frac": null,
+        "asymmetric_index": null,
+        "generation_operation_index": null
+      },
+      {
+        "index": 2,
+        "element": "H",
+        "atomic_number": 1,
+        "cart": [
+          -0.46885,
+          0.812101,
+          -0.271
+        ],
+        "frac": null,
+        "asymmetric_index": null,
+        "generation_operation_index": null
+      },
+      {
+        "index": 3,
+        "element": "H",
+        "atomic_number": 1,
+        "cart": [
+          -0.46885,
+          -0.812101,
+          -0.271
+        ],
+        "frac": null,
+        "asymmetric_index": null,
+        "generation_operation_index": null
+      }
+    ],
+    "asymmetric_atoms": [],
+    "operations": [
+      {
+        "index": 0,
+        "label": "0: C3 rotation_3",
+        "kind": "rotation_3",
+        "order": 3,
+        "angle_deg": 119.99999999999999,
+        "symbol": "C3",
+        "matrix_frac": null,
+        "translation_frac": null,
+        "matrix_cart": [
+          [
+            -0.4999999999999998,
+            -0.8660254037844387,
+            0.0
+          ],
+          [
+            0.8660254037844387,
+            -0.4999999999999998,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "translation_cart": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "index": 1,
+        "label": "1: sigma mirror",
+        "kind": "mirror",
+        "order": 2,
+        "angle_deg": null,
+        "symbol": "sigma",
+        "matrix_frac": null,
+        "translation_frac": null,
+        "matrix_cart": [
+          [
+            -0.49997323617496203,
+            0.8660408553346292,
+            0.0
+          ],
+          [
+            0.8660408553346292,
+            0.4999732361749617,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "translation_cart": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "index": 2,
+        "label": "2: C3 rotation_3",
+        "kind": "rotation_3",
+        "order": 3,
+        "angle_deg": 120.00000000000001,
+        "symbol": "C3",
+        "matrix_frac": null,
+        "translation_frac": null,
+        "matrix_cart": [
+          [
+            -0.5000000000000003,
+            0.8660254037844384,
+            0.0
+          ],
+          [
+            -0.8660254037844384,
+            -0.5000000000000003,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "translation_cart": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "index": 3,
+        "label": "3: sigma mirror",
+        "kind": "mirror",
+        "order": 2,
+        "angle_deg": null,
+        "symbol": "sigma",
+        "matrix_frac": null,
+        "translation_frac": null,
+        "matrix_cart": [
+          [
+            -0.5000267633475122,
+            -0.8660099514071482,
+            0.0
+          ],
+          [
+            -0.8660099514071482,
+            0.5000267633475121,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "translation_cart": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "index": 4,
+        "label": "4: sigma mirror",
+        "kind": "mirror",
+        "order": 2,
+        "angle_deg": null,
+        "symbol": "sigma",
+        "matrix_frac": null,
+        "translation_frac": null,
+        "matrix_cart": [
+          [
+            0.9999999995224736,
+            -3.0903927480547325e-05,
+            0.0
+          ],
+          [
+            -3.0903927480547325e-05,
+            -0.9999999995224735,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "translation_cart": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "index": 5,
+        "label": "5: E identity",
+        "kind": "identity",
+        "order": 1,
+        "angle_deg": null,
+        "symbol": "E",
+        "matrix_frac": null,
+        "translation_frac": null,
+        "matrix_cart": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.9999999999999999,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "translation_cart": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "axes": [
+      {
+        "point_cart": [
+          0.0,
+          0.0,
+          0.04728698712664087
+        ],
+        "direction_cart": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "label": "C3x2",
+        "operation_indices": [
+          0,
+          2
+        ]
+      }
+    ],
+    "planes": [
+      {
+        "point_cart": [
+          0.0,
+          0.0,
+          0.04728698712664087
+        ],
+        "basis1_cart": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "basis2_cart": [
+          0.5000133817334482,
+          0.8660176776991801,
+          0.0
+        ],
+        "normal_cart": [
+          0.8660176776991801,
+          -0.5000133817334482,
+          0.0
+        ],
+        "label": "sigma",
+        "operation_indices": [
+          1
+        ]
+      },
+      {
+        "point_cart": [
+          0.0,
+          0.0,
+          0.04728698712664087
+        ],
+        "basis1_cart": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "basis2_cart": [
+          0.49998661814717005,
+          -0.8660331296629223,
+          0.0
+        ],
+        "normal_cart": [
+          0.8660331296629223,
+          0.49998661814717005,
+          0.0
+        ],
+        "label": "sigma",
+        "operation_indices": [
+          3
+        ]
+      },
+      {
+        "point_cart": [
+          0.0,
+          0.0,
+          0.04728698712664087
+        ],
+        "basis1_cart": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "basis2_cart": [
+          0.9999999998806184,
+          -1.5451963742118344e-05,
+          0.0
+        ],
+        "normal_cart": [
+          1.5451963742118344e-05,
+          0.9999999998806184,
+          0.0
+        ],
+        "label": "sigma",
+        "operation_indices": [
+          4
+        ]
+      }
+    ],
+    "centers": [],
+    "unit_cell": null,
+    "bounds_min": [
+      -0.46885,
+      -0.812101,
+      -0.271
+    ],
+    "bounds_max": [
+      0.9377,
+      0.812101,
+      0.116
+    ]
+  },
+  "atom_mappings": {
+    "mode": "molecule",
+    "complete": true,
+    "incomplete_operation_indices": [],
+    "mappings": [
+      {
+        "mode": "molecule",
+        "operation_index": 0,
+        "operation_kind": "rotation_3",
+        "complete": true,
+        "atom_to_atom": [
+          0,
+          2,
+          3,
+          1
+        ],
+        "max_distance": 2.8978871332105558e-05,
+        "unmatched_atoms": [],
+        "entries": [
+          {
+            "source_atom": 0,
+            "target_atom": 0,
+            "distance": 0.0,
+            "transformed_cart": [
+              0.0,
+              0.0,
+              0.116
+            ],
+            "transformed_frac": null,
+            "wrapped_frac": null,
+            "animation_frac": null
+          },
+          {
+            "source_atom": 1,
+            "target_atom": 2,
+            "distance": 2.897887133179733e-05,
+            "transformed_cart": [
+              -0.46884999999999977,
+              0.8120720211286682,
+              -0.271
+            ],
+            "transformed_frac": null,
+            "wrapped_frac": null,
+            "animation_frac": null
+          },
+          {
+            "source_atom": 2,
+            "target_atom": 3,
+            "distance": 2.8978871332105558e-05,
+            "transformed_cart": [
+              -0.4688750964387466,
+              -0.8120865105643339,
+              -0.271
+            ],
+            "transformed_frac": null,
+            "wrapped_frac": null,
+            "animation_frac": null
+          },
+          {
+            "source_atom": 3,
+            "target_atom": 1,
+            "distance": 2.897887133174858e-05,
+            "transformed_cart": [
+              0.9377250964387464,
+              1.4489435665735834e-05,
+              -0.271
+            ],
+            "transformed_frac": null,
+            "wrapped_frac": null,
+            "animation_frac": null
+          }
+        ]
+      },
+      {
+        "mode": "molecule",
+        "operation_index": 1,
+        "operation_kind": "mirror",
+        "complete": true,
+        "atom_to_atom": [
+          0,
+          2,
+          1,
+          3
+        ],
+        "max_distance": 5.795825970898304e-05,
+        "unmatched_atoms": [],
+        "entries": [
+          {
+            "source_atom": 0,
+            "target_atom": 0,
+            "distance": 0.0,
+            "transformed_cart": [
+              0.0,
+              0.0,
+              0.116
+            ],
+            "transformed_frac": null,
+            "wrapped_frac": null,
+            "animation_frac": null
+          },
+          {
+            "source_atom": 1,
+            "target_atom": 2,
+            "distance": 2.8979129854299227e-05,
+            "transformed_cart": [
+              -0.4688249035612619,
+              0.8120865100472817,
+              -0.271
+            ],
+            "transformed_frac": null,
+            "wrapped_frac": null,
+            "animation_frac": null
+          },
+          {
+            "source_atom": 2,
+            "target_atom": 1,
+            "distance": 2.8979129854765346e-05,
+            "transformed_cart": [
+              0.9377250964387386,
+              -1.4489952718310955e-05,
+              -0.271
+            ],
+            "transformed_frac": null,
+            "wrapped_frac": null,
+            "animation_frac": null
+          },
+          {
+            "source_atom": 3,
+            "target_atom": 3,
+            "distance": 5.795825970898304e-05,
+            "transformed_cart": [
+              -0.46890019287747664,
+              -0.8120720200945635,
+              -0.271
+            ],
+            "transformed_frac": null,
+            "wrapped_frac": null,
+            "animation_frac": null
+          }
+        ]
+      },
+      {
+        "mode": "molecule",
+        "operation_index": 2,
+        "operation_kind": "rotation_3",
+        "complete": true,
+        "atom_to_atom": [
+          0,
+          3,
+          1,
+          2
+        ],
+        "max_distance": 2.8978871332130396e-05,
+        "unmatched_atoms": [],
+        "entries": [
+          {
+            "source_atom": 0,
+            "target_atom": 0,
+            "distance": 0.0,
+            "transformed_cart": [
+              0.0,
+              0.0,
+              0.116
+            ],
+            "transformed_frac": null,
+            "wrapped_frac": null,
+            "animation_frac": null
+          },
+          {
+            "source_atom": 1,
+            "target_atom": 3,
+            "distance": 2.8978871332130396e-05,
+            "transformed_cart": [
+              -0.4688500000000003,
+              -0.8120720211286678,
+              -0.271
+            ],
+            "transformed_frac": null,
+            "wrapped_frac": null,
+            "animation_frac": null
+          },
+          {
+            "source_atom": 2,
+            "target_atom": 1,
+            "distance": 2.8978871331952556e-05,
+            "transformed_cart": [
+              0.9377250964387462,
+              -1.4489435666336082e-05,
+              -0.271
+            ],
+            "transformed_frac": null,
+            "wrapped_frac": null,
+            "animation_frac": null
+          },
+          {
+            "source_atom": 3,
+            "target_atom": 2,
+            "distance": 2.897887133141021e-05,
+            "transformed_cart": [
+              -0.468875096438746,
+              0.8120865105643342,
+              -0.271
+            ],
+            "transformed_frac": null,
+            "wrapped_frac": null,
+            "animation_frac": null
+          }
+        ]
+      },
+      {
+        "mode": "molecule",
+        "operation_index": 3,
+        "operation_kind": "mirror",
+        "complete": true,
+        "atom_to_atom": [
+          0,
+          3,
+          2,
+          1
+        ],
+        "max_distance": 5.019287748763092e-05,
+        "unmatched_atoms": [],
+        "entries": [
+          {
+            "source_atom": 0,
+            "target_atom": 0,
+            "distance": 0.0,
+            "transformed_cart": [
+              0.0,
+              0.0,
+              0.116
+            ],
+            "transformed_frac": null,
+            "wrapped_frac": null,
+            "animation_frac": null
+          },
+          {
+            "source_atom": 1,
+            "target_atom": 3,
+            "distance": 5.019287748760088e-05,
+            "transformed_cart": [
+              -0.46887509599096217,
+              -0.8120575314344829,
+              -0.271
+            ],
+            "transformed_frac": null,
+            "wrapped_frac": null,
+            "animation_frac": null
+          },
+          {
+            "source_atom": 2,
+            "target_atom": 2,
+            "distance": 5.170525345961537e-10,
+            "transformed_cart": [
+              -0.46884999955221535,
+              0.8121010002585193,
+              -0.271
+            ],
+            "transformed_frac": null,
+            "wrapped_frac": null,
+            "animation_frac": null
+          },
+          {
+            "source_atom": 3,
+            "target_atom": 1,
+            "distance": 5.019287748763092e-05,
+            "transformed_cart": [
+              0.9377250955431775,
+              -4.3468824036461806e-05,
+              -0.271
+            ],
+            "transformed_frac": null,
+            "wrapped_frac": null,
+            "animation_frac": null
+          }
+        ]
+      },
+      {
+        "mode": "molecule",
+        "operation_index": 4,
+        "operation_kind": "mirror",
+        "complete": true,
+        "atom_to_atom": [
+          0,
+          1,
+          3,
+          2
+        ],
+        "max_distance": 2.897938838396097e-05,
+        "unmatched_atoms": [],
+        "entries": [
+          {
+            "source_atom": 0,
+            "target_atom": 0,
+            "distance": 0.0,
+            "transformed_cart": [
+              0.0,
+              0.0,
+              0.116
+            ],
+            "transformed_frac": null,
+            "wrapped_frac": null,
+            "animation_frac": null
+          },
+          {
+            "source_atom": 1,
+            "target_atom": 1,
+            "distance": 2.8978612801968738e-05,
+            "transformed_cart": [
+              0.9376999995522235,
+              -2.8978612798509225e-05,
+              -0.271
+            ],
+            "transformed_frac": null,
+            "wrapped_frac": null,
+            "animation_frac": null
+          },
+          {
+            "source_atom": 2,
+            "target_atom": 3,
+            "distance": 2.897938838396097e-05,
+            "transformed_cart": [
+              -0.4688750968865226,
+              -0.812086510305801,
+              -0.271
+            ],
+            "transformed_frac": null,
+            "wrapped_frac": null,
+            "animation_frac": null
+          },
+          {
+            "source_atom": 3,
+            "target_atom": 2,
+            "distance": 2.8979388383927004e-05,
+            "transformed_cart": [
+              -0.46882490266570087,
+              0.8121154889185995,
+              -0.271
+            ],
+            "transformed_frac": null,
+            "wrapped_frac": null,
+            "animation_frac": null
+          }
+        ]
+      },
+      {
+        "mode": "molecule",
+        "operation_index": 5,
+        "operation_kind": "identity",
+        "complete": true,
+        "atom_to_atom": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "max_distance": 1.1102230246251565e-16,
+        "unmatched_atoms": [],
+        "entries": [
+          {
+            "source_atom": 0,
+            "target_atom": 0,
+            "distance": 0.0,
+            "transformed_cart": [
+              0.0,
+              0.0,
+              0.116
+            ],
+            "transformed_frac": null,
+            "wrapped_frac": null,
+            "animation_frac": null
+          },
+          {
+            "source_atom": 1,
+            "target_atom": 1,
+            "distance": 0.0,
+            "transformed_cart": [
+              0.9377,
+              0.0,
+              -0.271
+            ],
+            "transformed_frac": null,
+            "wrapped_frac": null,
+            "animation_frac": null
+          },
+          {
+            "source_atom": 2,
+            "target_atom": 2,
+            "distance": 1.1102230246251565e-16,
+            "transformed_cart": [
+              -0.46885,
+              0.8121009999999999,
+              -0.271
+            ],
+            "transformed_frac": null,
+            "wrapped_frac": null,
+            "animation_frac": null
+          },
+          {
+            "source_atom": 3,
+            "target_atom": 3,
+            "distance": 1.1102230246251565e-16,
+            "transformed_cart": [
+              -0.46885,
+              -0.8121009999999999,
+              -0.271
+            ],
+            "transformed_frac": null,
+            "wrapped_frac": null,
+            "animation_frac": null
+          }
+        ]
+      }
+    ]
+  }
+}

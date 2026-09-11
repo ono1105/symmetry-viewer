@@ -1,0 +1,624 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Symmetry Controls</title>
+  <link rel="stylesheet" href="/static/browser_ui.css">
+</head>
+<body class="beginner-mode">
+<main>
+  <section id="mode-select" class="mode-overlay">
+    <div class="mode-select-card">
+      <h1 class="mode-select-title">対称性ビューアー</h1>
+      <p class="mode-select-sub">モードを選択してください</p>
+      <div class="mode-select-buttons">
+        <button type="button" id="enter-analysis" class="mode-select-button analysis">
+          <span class="mode-select-name">解析モード</span>
+          <span class="mode-select-desc">構造を表示し、対称操作を確認する</span>
+        </button>
+        <button type="button" id="enter-puzzle" class="mode-select-button puzzle">
+          <span class="mode-select-name">クイズモード</span>
+          <span class="mode-select-desc">対称性を判別する演習問題</span>
+        </button>
+      </div>
+    </div>
+  </section>
+  <section id="puzzle-mode" class="mode-overlay" hidden>
+    <div class="mode-topbar">
+      <button type="button" id="puzzle-back" class="secondary mode-back">← 戻る</button>
+      <h1>クイズモード</h1>
+    </div>
+    <div id="puzzle-body" class="puzzle-body">
+      <div id="puzzle-quiz-select" class="puzzle-quiz-select">
+        <h2 class="puzzle-quiz-title">クイズを選んでください</h2>
+        <div class="puzzle-quiz-list">
+          <button type="button" class="puzzle-quiz-card" data-quiz="axis">
+            <span class="puzzle-quiz-name">回転軸クイズ</span>
+            <span class="puzzle-quiz-desc">ハイライトされた軸が何回回転軸かを当てます。</span>
+          </button>
+          <button type="button" class="puzzle-quiz-card" data-quiz="operation">
+            <span class="puzzle-quiz-name">操作あてクイズ</span>
+            <span class="puzzle-quiz-desc">アニメーションで示された対称操作の種類と次数を当てます。</span>
+          </button>
+          <button type="button" class="puzzle-quiz-card" data-quiz="composition">
+            <span class="puzzle-quiz-name">合成クイズ</span>
+            <span class="puzzle-quiz-desc">2つの操作を続けて行うと、どの1つの操作と同じになるかを当てます。</span>
+          </button>
+          <button type="button" class="puzzle-quiz-card" data-quiz="mapping">
+            <span class="puzzle-quiz-name">移り先クイズ</span>
+            <span class="puzzle-quiz-desc">対称操作で、選ばれた原子がどの原子に移るかをクリックで当てます。</span>
+          </button>
+          <button type="button" class="puzzle-quiz-card" data-quiz="point_group">
+            <span class="puzzle-quiz-name">点群あてクイズ</span>
+            <span class="puzzle-quiz-desc">構造全体を見て、正しい点群記号を選びます。</span>
+          </button>
+        </div>
+      </div>
+      <div id="puzzle-operation-difficulty" class="puzzle-quiz-select" hidden>
+        <h2 class="puzzle-quiz-title">操作あてクイズ</h2>
+        <div class="puzzle-quiz-list">
+          <button type="button" class="puzzle-quiz-card" data-operation-difficulty="normal">
+            <span class="puzzle-quiz-name">普通</span>
+            <span class="puzzle-quiz-desc">回転・鏡映・反転・回映・回反を当てます。</span>
+          </button>
+          <button type="button" class="puzzle-quiz-card" data-operation-difficulty="hard">
+            <span class="puzzle-quiz-name">難しい</span>
+            <span class="puzzle-quiz-desc">結晶のらせん軸・映進面を当てます。</span>
+          </button>
+        </div>
+      </div>
+      <div id="puzzle-point-group-kind" class="puzzle-quiz-select" hidden>
+        <h2 class="puzzle-quiz-title">点群あてクイズ</h2>
+        <div class="puzzle-quiz-list">
+          <button type="button" class="puzzle-quiz-card" data-point-group-kind="molecule">
+            <span class="puzzle-quiz-name">分子</span>
+            <span class="puzzle-quiz-desc">ランダムに選ばれた分子の点群を当てます。</span>
+          </button>
+          <button type="button" class="puzzle-quiz-card" data-point-group-kind="crystal">
+            <span class="puzzle-quiz-name">結晶</span>
+            <span class="puzzle-quiz-desc">ランダムに選ばれた結晶の点群を当てます。</span>
+          </button>
+        </div>
+      </div>
+      <div id="puzzle-picker" class="puzzle-picker"></div>
+      <div id="puzzle-play" class="puzzle-play" hidden>
+        <div class="puzzle-top">
+          <div class="puzzle-stage">
+            <div class="puzzle-stage-head">
+              <span id="puzzle-structure-title" class="puzzle-structure-title"></span>
+              <span id="puzzle-stage-caption" class="puzzle-stage-caption"></span>
+            </div>
+            <div id="puzzle-view" class="puzzle-view">
+              <canvas></canvas>
+              <div id="puzzle-legend" class="puzzle-legend"></div>
+              <details id="puzzle-camera-overlay" class="puzzle-camera-overlay" open>
+                <summary class="puzzle-camera-overlay-title">カメラ操作</summary>
+                <div class="camera-block">
+                  <div class="camera-rotate-row">
+                    <div class="camera-grid">
+                      <button type="button" id="puzzle-cam-roll-left" class="secondary" title="左に傾ける" aria-label="左に傾ける">↶</button>
+                      <button type="button" id="puzzle-cam-up" class="secondary" title="上に回す" aria-label="上に回す">↑</button>
+                      <button type="button" id="puzzle-cam-roll-right" class="secondary" title="右に傾ける" aria-label="右に傾ける">↷</button>
+                      <button type="button" id="puzzle-cam-left" class="secondary" title="左に回す" aria-label="左に回す">←</button>
+                      <button type="button" id="puzzle-cam-down" class="secondary" title="下に回す" aria-label="下に回す">↓</button>
+                      <button type="button" id="puzzle-cam-right" class="secondary" title="右に回す" aria-label="右に回す">→</button>
+                    </div>
+                    <input id="puzzle-cam-angle" class="angle-control" type="number" value="90" min="0" max="180" step="1" aria-label="回転角度">
+                  </div>
+                  <button type="button" id="puzzle-view-along" class="secondary">軸方向から見る</button>
+                  <button type="button" id="puzzle-projection" class="secondary puzzle-projection" data-projection="perspective">透視投影</button>
+                  <label class="check-row" id="puzzle-target-copies-toggle">
+                    <input id="puzzle-target-copies" type="checkbox">
+                    隣接セルの表示
+                  </label>
+                  <label class="check-row" id="puzzle-boundary-images-toggle">
+                    <input id="puzzle-boundary-images" type="checkbox">
+                    境界原子の表示
+                  </label>
+                </div>
+              </details>
+              <button type="button" id="puzzle-view-fullscreen" class="secondary puzzle-view-fullscreen" aria-label="全画面表示にする">全画面</button>
+            </div>
+            <div id="puzzle-playback" class="puzzle-playback" hidden>
+              <div class="puzzle-playback-row">
+                <button type="button" id="puzzle-replay" class="secondary">再生</button>
+                <button type="button" id="puzzle-save-gif" class="secondary" hidden>GIFを保存</button>
+                <button type="button" id="puzzle-trajectories" class="secondary" data-enabled="false" hidden>軌道: 非表示</button>
+                <input id="puzzle-slider" type="range" min="0" max="1000" value="0" step="1" list="puzzle-slider-stops" aria-label="回転">
+                <datalist id="puzzle-slider-stops"></datalist>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="puzzle-panel">
+          <p id="puzzle-question" class="puzzle-question"></p>
+          <div id="puzzle-options" class="puzzle-options"></div>
+          <div class="puzzle-actions">
+            <button type="button" id="puzzle-check" class="puzzle-primary">回答</button>
+            <button type="button" id="puzzle-again" class="secondary" hidden>もう一度</button>
+            <button type="button" id="puzzle-other" class="secondary">別の物質</button>
+            <button type="button" id="puzzle-open-analysis" class="secondary" hidden>解析モードで開く</button>
+          </div>
+          <div id="puzzle-result" class="puzzle-result" hidden></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="topbar">
+    <button type="button" id="analysis-back" class="secondary mode-back">← 戻る</button>
+    <div class="analysis-heading">
+      <h1 id="main-title">Symmetry Viewer</h1>
+      <span id="header-structure-summary" class="header-structure-summary" hidden></span>
+    </div>
+    <div class="topbar-actions">
+      <div class="button-row flush" id="experience-controls">
+        <button class="mode-toggle experience-button" id="experience-toggle" data-experience="advanced" title="Switch to Full mode">Simple</button>
+      </div>
+      <div class="button-row flush" id="structure-kind-controls">
+        <button class="mode-toggle structure-kind-button" id="structure-kind-toggle" data-kind="molecule" title="Switch to Molecule">Crystal</button>
+      </div>
+      <input id="cif-file" class="file-input" type="file" accept=".cif,.txt">
+      <button id="import-cif" class="secondary">構造を開く</button>
+      <input id="molecule-file" class="file-input" type="file" accept=".xyz,.txt">
+      <button id="import-molecule" class="secondary">構造を開く</button>
+      <div class="rich-select example-select" id="example-picker">
+        <button type="button" class="secondary rich-select-trigger" id="example-select-display" aria-expanded="false">Select example...</button>
+        <div class="rich-select-menu" id="example-select-menu" role="listbox" hidden></div>
+        <select id="example-select" class="native-select-proxy" aria-hidden="true" tabindex="-1"></select>
+      </div>
+      <button id="open-example" class="secondary">開く</button>
+    </div>
+  </div>
+  <section class="panel" id="start-panel" hidden>
+    <p class="start-panel-guide">例を選ぶか、構造を開いてください。</p>
+  </section>
+  <section class="panel error-panel" id="load-error-panel" hidden>
+    <div class="error-title" id="load-error-title"></div>
+    <div class="error-message" id="load-error-message"></div>
+    <div class="error-detail" id="load-error-detail"></div>
+  </section>
+  <div class="viewer-workspace">
+  <div class="viewer-primary">
+  <section class="panel" id="structure-info-panel" hidden>
+    <div class="structure-summary" id="structure-info"></div>
+  </section>
+  <section class="panel" id="three-view-panel">
+    <div class="three-view-shell" id="three-view">
+      <canvas aria-label="Interactive three-dimensional structure view"></canvas>
+      <div class="atom-legend" data-atom-legend hidden></div>
+      <div class="three-view-status" data-three-status hidden></div>
+      <div id="selected-operation-overlay" class="selected-operation-overlay" hidden></div>
+      <button type="button" id="toggle-view-fullscreen" class="secondary three-view-fullscreen" aria-label="Enter full screen view">Full screen</button>
+    </div>
+    <details id="fullscreen-controls" class="fullscreen-controls">
+      <summary>Controls</summary>
+      <div class="fullscreen-controls-body">
+        <div class="fullscreen-operation-controls">
+          <label for="fullscreen-operation-select">Operation</label>
+          <select id="fullscreen-operation-select"></select>
+        </div>
+        <div id="fullscreen-controls-content"></div>
+      </div>
+    </details>
+  </section>
+  </div>
+  <div class="grid" id="workspace">
+    <div class="left-stack">
+    <div class="operation-mode-switch advanced-only" id="mode-controls" role="tablist" aria-label="Operation mode">
+      <button class="mode-button selected" data-mode="standard" role="tab" aria-selected="true">Standard</button>
+      <button class="mode-button" data-mode="custom" role="tab" aria-selected="false">Custom</button>
+    </div>
+    <section class="panel" id="standard-panel">
+        <h2 class="section-title" id="operations-title">Operations</h2>
+      <div class="control-stack">
+        <div>
+          <label>記号</label>
+          <div class="direction-filter-list" id="operation-type-filter"></div>
+        </div>
+        <details class="compact-details advanced-only">
+          <summary>List settings</summary>
+          <div class="control-stack">
+            <div>
+              <label for="operation-sort">Sort</label>
+              <select id="operation-sort">
+                <option value="index">Operation number</option>
+                <option value="symbol">Operation symbol</option>
+                <option value="element">Axis / plane / center</option>
+                <option value="direction">Direction only</option>
+              </select>
+            </div>
+            <div id="operation-label-mode-block">
+              <label for="operation-label-mode">Notation</label>
+              <select id="operation-label-mode">
+                <option value="itc_like" selected>ITC operation</option>
+                <option value="standard">Element</option>
+              </select>
+            </div>
+            <div>
+              <label id="operation-filter-label">Direction</label>
+              <div class="direction-filter-list" id="direction-filter"></div>
+            </div>
+          </div>
+        </details>
+      </div>
+      <div class="operation-list-heading">
+        <label for="operations" id="operations-label">操作</label>
+        <output id="operations-count" class="operation-count" aria-live="polite">Showing: 0 / total 0</output>
+      </div>
+      <div class="operation-list" id="operations" role="listbox"></div>
+    </section>
+    <section class="panel advanced-only" id="custom-panel" hidden>
+      <h2 class="section-title">Custom Operation</h2>
+      <div class="custom-block">
+          <h3 class="subsection-title">Add existing operation</h3>
+          <label for="cop-operation-select">Existing operation</label>
+          <div class="compact-add-row">
+            <div class="rich-select" id="cop-operation-picker">
+              <button type="button" class="secondary rich-select-trigger" id="cop-operation-display" aria-expanded="false">Select operation</button>
+              <div class="rich-select-menu" id="cop-operation-menu" role="listbox" hidden></div>
+              <select id="cop-operation-select" class="native-select-proxy" aria-hidden="true" tabindex="-1"></select>
+            </div>
+            <button id="btn-add-existing-op" class="secondary compact-add-button">Add</button>
+          </div>
+      </div>
+      <details class="custom-block custom-create-details">
+        <summary>Create operation</summary>
+        <div class="control-stack">
+        <div>
+          <label for="cop-type">Operation type</label>
+          <select id="cop-type">
+            <option value="rotation">Rotation</option>
+            <option value="mirror">Mirror</option>
+            <option value="inversion">Inversion</option>
+            <option value="screw">Screw axis</option>
+            <option value="glide">Glide reflection</option>
+            <option value="rotoinversion">Rotoinversion (Sₙ)</option>
+            <option value="translation">Translation</option>
+            <option value="identity">Identity</option>
+            <option value="matrix">Matrix (W|t) direct input</option>
+          </select>
+        </div>
+        <div id="cop-rotation" class="cop-fields">
+          <label>Axis [u v w] — fractional lattice direction</label>
+          <div class="vec3-row">
+            <input type="number" id="cop-rot-u" value="0" step="any" placeholder="u">
+            <input type="number" id="cop-rot-v" value="0" step="any" placeholder="v">
+            <input type="number" id="cop-rot-w" value="1" step="any" placeholder="w">
+          </div>
+          <label>Angle (degrees)</label>
+          <input type="number" id="cop-rot-angle" value="90" step="any" class="narrow-input">
+          <label>Point on axis [x y z] — fractional</label>
+          <div class="vec3-row">
+            <input type="number" id="cop-rot-px" value="0" step="any" placeholder="x">
+            <input type="number" id="cop-rot-py" value="0" step="any" placeholder="y">
+            <input type="number" id="cop-rot-pz" value="0" step="any" placeholder="z">
+          </div>
+        </div>
+        <div id="cop-mirror" class="cop-fields" hidden>
+          <label>Plane normal (h k l) — Miller indices</label>
+          <div class="vec3-row">
+            <input type="number" id="cop-mir-h" value="0" step="any" placeholder="h">
+            <input type="number" id="cop-mir-k" value="0" step="any" placeholder="k">
+            <input type="number" id="cop-mir-l" value="1" step="any" placeholder="l">
+          </div>
+          <label>Point on plane [x y z] — fractional</label>
+          <div class="vec3-row">
+            <input type="number" id="cop-mir-px" value="0" step="any" placeholder="x">
+            <input type="number" id="cop-mir-py" value="0" step="any" placeholder="y">
+            <input type="number" id="cop-mir-pz" value="0" step="any" placeholder="z">
+          </div>
+        </div>
+        <div id="cop-inversion" class="cop-fields" hidden>
+          <label>Inversion center [x y z] — fractional</label>
+          <div class="vec3-row">
+            <input type="number" id="cop-inv-cx" value="0" step="any" placeholder="x">
+            <input type="number" id="cop-inv-cy" value="0" step="any" placeholder="y">
+            <input type="number" id="cop-inv-cz" value="0" step="any" placeholder="z">
+          </div>
+        </div>
+        <div id="cop-screw" class="cop-fields" hidden>
+          <label>Axis [u v w] — fractional</label>
+          <div class="vec3-row">
+            <input type="number" id="cop-scr-u" value="0" step="any" placeholder="u">
+            <input type="number" id="cop-scr-v" value="0" step="any" placeholder="v">
+            <input type="number" id="cop-scr-w" value="1" step="any" placeholder="w">
+          </div>
+          <label>Rotation angle (degrees)</label>
+          <input type="number" id="cop-scr-angle" value="180" step="any" class="narrow-input">
+          <label>Screw translation [tx ty tz] — fractional</label>
+          <div class="vec3-row">
+            <input type="number" id="cop-scr-tx" value="0" step="any" placeholder="tx">
+            <input type="number" id="cop-scr-ty" value="0" step="any" placeholder="ty">
+            <input type="number" id="cop-scr-tz" value="0.5" step="any" placeholder="tz">
+          </div>
+          <label>Point on axis [x y z] — fractional</label>
+          <div class="vec3-row">
+            <input type="number" id="cop-scr-px" value="0" step="any" placeholder="x">
+            <input type="number" id="cop-scr-py" value="0" step="any" placeholder="y">
+            <input type="number" id="cop-scr-pz" value="0" step="any" placeholder="z">
+          </div>
+        </div>
+        <div id="cop-glide" class="cop-fields" hidden>
+          <label>Plane normal (h k l) — Miller indices</label>
+          <div class="vec3-row">
+            <input type="number" id="cop-gli-h" value="0" step="any" placeholder="h">
+            <input type="number" id="cop-gli-k" value="0" step="any" placeholder="k">
+            <input type="number" id="cop-gli-l" value="1" step="any" placeholder="l">
+          </div>
+          <label>Point on plane [x y z] — fractional</label>
+          <div class="vec3-row">
+            <input type="number" id="cop-gli-px" value="0" step="any" placeholder="x">
+            <input type="number" id="cop-gli-py" value="0" step="any" placeholder="y">
+            <input type="number" id="cop-gli-pz" value="0" step="any" placeholder="z">
+          </div>
+          <label>Glide translation [tx ty tz] — fractional</label>
+          <div class="vec3-row">
+            <input type="number" id="cop-gli-tx" value="0.5" step="any" placeholder="tx">
+            <input type="number" id="cop-gli-ty" value="0" step="any" placeholder="ty">
+            <input type="number" id="cop-gli-tz" value="0" step="any" placeholder="tz">
+          </div>
+        </div>
+        <div id="cop-rotoinversion" class="cop-fields" hidden>
+          <label>Axis [u v w] — fractional</label>
+          <div class="vec3-row">
+            <input type="number" id="cop-riv-u" value="0" step="any" placeholder="u">
+            <input type="number" id="cop-riv-v" value="0" step="any" placeholder="v">
+            <input type="number" id="cop-riv-w" value="1" step="any" placeholder="w">
+          </div>
+          <label>Rotation angle before inversion (degrees)</label>
+          <input type="number" id="cop-riv-angle" value="90" step="any" class="narrow-input">
+          <label>Inversion center [x y z] — fractional</label>
+          <div class="vec3-row">
+            <input type="number" id="cop-riv-cx" value="0" step="any" placeholder="x">
+            <input type="number" id="cop-riv-cy" value="0" step="any" placeholder="y">
+            <input type="number" id="cop-riv-cz" value="0" step="any" placeholder="z">
+          </div>
+        </div>
+        <div id="cop-translation" class="cop-fields" hidden>
+          <label>Translation [tx ty tz] — fractional</label>
+          <div class="vec3-row">
+            <input type="number" id="cop-tra-x" value="0.5" step="any" placeholder="tx">
+            <input type="number" id="cop-tra-y" value="0.5" step="any" placeholder="ty">
+            <input type="number" id="cop-tra-z" value="0" step="any" placeholder="tz">
+          </div>
+        </div>
+        <div id="cop-identity" class="cop-fields" hidden>
+        </div>
+        <div id="cop-matrix" class="cop-fields" hidden>
+          <label>Rotation matrix W — 3×3 row-major, fractional basis</label>
+          <div class="mat3-grid">
+            <input type="number" id="cop-mat-w00" value="1" step="any">
+            <input type="number" id="cop-mat-w01" value="0" step="any">
+            <input type="number" id="cop-mat-w02" value="0" step="any">
+            <input type="number" id="cop-mat-w10" value="0" step="any">
+            <input type="number" id="cop-mat-w11" value="1" step="any">
+            <input type="number" id="cop-mat-w12" value="0" step="any">
+            <input type="number" id="cop-mat-w20" value="0" step="any">
+            <input type="number" id="cop-mat-w21" value="0" step="any">
+            <input type="number" id="cop-mat-w22" value="1" step="any">
+          </div>
+          <label>Translation t — fractional</label>
+          <div class="vec3-row">
+            <input type="number" id="cop-mat-tx" value="0" step="any" placeholder="tx">
+            <input type="number" id="cop-mat-ty" value="0" step="any" placeholder="ty">
+            <input type="number" id="cop-mat-tz" value="0" step="any" placeholder="tz">
+          </div>
+        </div>
+        <div>
+          <label for="cop-tol">Tolerance (Å)</label>
+          <input type="number" id="cop-tol" value="0.1" min="0.001" max="2.0" step="0.001" class="narrow-input">
+        </div>
+      </div>
+      <div class="button-row flush">
+        <button id="btn-add-custom-operation" class="secondary compact-add-button">Add to sequence</button>
+      </div>
+      </details>
+      <div class="custom-block">
+          <h3 class="subsection-title">Operation sequence</h3>
+          <div id="custom-sequence-list" class="sequence-list"></div>
+          <div class="button-row flush">
+            <button id="btn-compose-custom-sequence">Check sequence</button>
+            <button id="btn-clear-custom-sequence" class="secondary">Clear</button>
+          </div>
+          <div id="cop-result" class="cop-result" hidden></div>
+      </div>
+    </section>
+    </div>
+    <div class="side-stack">
+      <section class="panel" id="animation-panel">
+        <h2 class="section-title" id="animation-title">Animation</h2>
+        <div class="button-row flush">
+          <button id="play-toggle">再生</button>
+          <button id="reset" class="secondary">リセット</button>
+          <label class="inline-checkbox advanced-only" for="loop-animation">
+            <input id="loop-animation" type="checkbox">
+            <span title="Replay after a one-second pause">Loop</span>
+          </label>
+          <label class="inline-checkbox advanced-only" for="pause-at-breakpoints">
+            <input id="pause-at-breakpoints" type="checkbox">
+            <span title="Pause at each operation boundary">Stepwise</span>
+          </label>
+          <label class="inline-checkbox" for="show-trajectories">
+            <input id="show-trajectories" type="checkbox">
+            <span title="Show atom movement paths">Path</span>
+          </label>
+        </div>
+        <label class="movement-slider-row" for="movement-progress">
+          <input id="movement-progress" type="range" min="0" max="1000" value="0" step="1" list="movement-stops">
+          <datalist id="movement-stops"></datalist>
+          <span id="movement-progress-value" class="movement-progress-value">0%</span>
+        </label>
+        <div class="frame-step-controls" aria-label="Animation frame controls">
+          <button id="previous-frame" class="secondary" type="button" disabled title="Previous frame (Left arrow)" aria-label="Previous animation frame">◀</button>
+          <button id="next-frame" class="secondary" type="button" title="Next frame (Right arrow)" aria-label="Next animation frame">▶</button>
+        </div>
+        <div id="selected-atom-summary" class="selected-atom-summary beginner-only"></div>
+        <details class="compact-details advanced-only">
+          <summary>Animation settings</summary>
+          <h3 class="subsection-title">Speed</h3>
+          <label class="speed-slider-row" for="animation-speed">
+            <span>Slow</span>
+            <input id="animation-speed" type="range" min="0.25" max="3" value="1" step="0.05">
+            <span>Fast</span>
+            <output id="animation-speed-value" for="animation-speed">1.00×</output>
+          </label>
+          <div class="subsection-title">
+            <label for="improper-mode">Improper operation</label>
+            <select id="improper-mode">
+              <option value="auto">Auto</option>
+              <option value="rotoreflection">Rotoreflection</option>
+              <option value="rotoinversion">Rotoinversion</option>
+            </select>
+          </div>
+          <h3 class="subsection-title">Boundary</h3>
+          <div class="button-row flush" id="animation-boundary-controls">
+            <button class="secondary boundary-button selected" data-boundary-mode="continuous">Continuous</button>
+            <button class="secondary boundary-button" data-boundary-mode="wrap">Wrap</button>
+          </div>
+          <h3 class="subsection-title">Export</h3>
+          <div class="button-row flush">
+            <button id="save-png" class="secondary">Save PNG</button>
+            <button id="save-gif" class="secondary">Save GIF</button>
+          </div>
+        </details>
+      </section>
+      <details class="panel advanced-only collapsible-panel selected-operation-panel">
+        <summary>Selected Operation</summary>
+        <div id="op-details" class="operation-details"></div>
+      </details>
+    </div>
+    </div>
+  </div>
+  <details class="panel workspace-tools" id="utility-panel">
+    <summary>Display settings</summary>
+    <div class="workspace-tools-body">
+      <details class="viewer-camera-tools" id="view-panel">
+        <summary id="view-title">Camera</summary>
+        <div class="viewer-camera-tools-body">
+        <div class="camera-block">
+          <div class="camera-rotate-row">
+            <div class="camera-grid">
+              <button id="camera-roll-left" class="secondary" title="Roll left" aria-label="Roll left">↶</button>
+              <button id="camera-up" class="secondary" title="Tilt up" aria-label="Tilt up">↑</button>
+              <button id="camera-roll-right" class="secondary" title="Roll right" aria-label="Roll right">↷</button>
+              <button id="camera-left" class="secondary" title="Rotate left" aria-label="Rotate left">←</button>
+              <button id="camera-down" class="secondary" title="Tilt down" aria-label="Tilt down">↓</button>
+              <button id="camera-right" class="secondary" title="Rotate right" aria-label="Rotate right">→</button>
+            </div>
+            <label class="compact-angle-control" title="Rotation angle">
+              <input id="camera-angle" class="angle-control" type="number" value="90" min="0" max="180" step="1" aria-label="Rotation angle">
+              <span>°</span>
+            </label>
+          </div>
+          <div class="button-row flush">
+            <button id="view-direction" class="secondary">View along direction</button>
+            <button id="reset-view" class="secondary">Reset camera</button>
+          </div>
+        </div>
+        <div class="camera-block">
+          <label id="projection-label">Projection</label>
+          <div class="button-row flush" id="projection-controls">
+            <button class="mode-toggle projection-button" id="projection-toggle" data-projection-mode="orthographic">Perspective</button>
+          </div>
+          <label class="check-row boundary-images-toggle" id="boundary-images-toggle">
+            <input id="include-boundary-images" type="checkbox">
+            Show boundary atoms
+          </label>
+        </div>
+        <div class="advanced-only camera-settings-expanded">
+        <div class="camera-block advanced-only" id="view-direction-index-block">
+          <label>View along [h k l]</label>
+          <div class="view-direction-row">
+            <input type="number" id="view-dir-h" value="0" step="any" placeholder="h">
+            <input type="number" id="view-dir-k" value="0" step="any" placeholder="k">
+            <input type="number" id="view-dir-l" value="1" step="any" placeholder="l">
+            <button id="view-direction-index" class="secondary">Apply</button>
+          </div>
+        </div>
+        <div class="camera-block advanced-only" id="view-plane-index-block">
+          <label>View plane (h k l)</label>
+          <div class="view-direction-row">
+            <input type="number" id="view-plane-h" value="0" step="any" placeholder="h">
+            <input type="number" id="view-plane-k" value="0" step="any" placeholder="k">
+            <input type="number" id="view-plane-l" value="1" step="any" placeholder="l">
+            <button id="view-plane-index" class="secondary">Apply</button>
+          </div>
+        </div>
+        <div class="camera-block advanced-only">
+          <label id="view-center-label">View center [x y z] — fractional</label>
+          <div class="view-center-row">
+            <input type="number" id="view-center-x" value="0" step="any" placeholder="x">
+            <input type="number" id="view-center-y" value="0" step="any" placeholder="y">
+            <input type="number" id="view-center-z" value="0" step="any" placeholder="z">
+          </div>
+          <div class="button-row flush">
+            <button id="apply-view-center" class="secondary">Apply center</button>
+          </div>
+        </div>
+        <div class="camera-block advanced-only">
+          <label>Legend</label>
+          <div class="button-row flush" id="legend-controls">
+            <button class="mode-toggle legend-button" id="legend-toggle" data-legend-visible="true">Legend off</button>
+          </div>
+        </div>
+        </div>
+        </div>
+      </details>
+      <section class="panel" id="display-block">
+        <h2 class="section-title" id="cell-title">Cell</h2>
+        <div class="cell-block">
+          <label id="range-label">Range</label>
+          <div class="range-stepper" id="display-controls">
+            <button class="secondary" id="display-range-decrease" type="button" aria-label="Decrease range">−</button>
+            <output class="range-value" id="display-range-value">Unit cell</output>
+            <button class="secondary" id="display-range-increase" type="button" aria-label="Increase range">＋</button>
+          </div>
+        </div>
+        <details class="compact-details advanced-only">
+          <summary>Cell settings</summary>
+          <div class="cell-block">
+            <label>Unit cell origin</label>
+            <div class="button-row flush" id="cell-origin-controls">
+              <button class="secondary cell-origin-button selected" data-cell-origin-mode="center">Center</button>
+              <button class="secondary cell-origin-button" data-cell-origin-mode="corner">Corner</button>
+            </div>
+          </div>
+          <div class="cell-block">
+            <label>Cell basis</label>
+            <div class="button-row flush" id="cell-setting-controls">
+              <button class="secondary cell-setting-button" data-cell-setting-mode="primitive">Primitive cell</button>
+              <button class="secondary cell-setting-button" data-cell-setting-mode="conventional">Bravais cell</button>
+            </div>
+          </div>
+        </details>
+      </section>
+      <details class="panel advanced-only collapsible-panel">
+        <summary>Atoms</summary>
+        <label>Element appearance</label>
+        <div class="element-color-list" id="element-colors"></div>
+        <div class="button-row flush">
+          <button id="reset-atom-appearance" class="secondary">Reset appearance</button>
+        </div>
+        <label>Filter atoms</label>
+        <div class="direction-filter-list" id="atom-element-filter"></div>
+        <label>Atom selection and appearance</label>
+        <div class="atom-list" id="atoms"></div>
+        <div class="button-row">
+          <button id="displayed-atoms" class="secondary atom-mode-button" data-scope="displayed">Displayed all</button>
+          <button id="unit-cell-atoms" class="secondary atom-mode-button" data-scope="unit_cell">Unit cell only</button>
+          <button id="clear-atoms" class="secondary atom-mode-button" data-scope="representative">Clear</button>
+        </div>
+      </details>
+    </div>
+  </details>
+  <div class="status" id="status">Loading...</div>
+</main>
+<script id="structure-kind-config" type="application/json">__STRUCTURE_KIND_CONFIG__</script>
+<script id="viewer-constants" type="application/json">__VIEWER_CONSTANTS__</script>
+<script id="app-mode-config" type="application/json">__INITIAL_APP_MODE__</script>
+<script src="/static/browser_ui.js" defer></script>
+<script type="module" src="/static/three_loader.js"></script>
+<script type="module" src="/static/puzzle.js"></script>
+</body>
+</html>

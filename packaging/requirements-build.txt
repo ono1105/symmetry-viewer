@@ -1,0 +1,27 @@
+# Exact versions for building the packaged viewer (packaging/build_linux.sh).
+#
+# requirements.txt only sets lower bounds, which is right for a development
+# install but would let every build pick up whatever was released that week.
+# These are the versions the test suite passed with (Python 3.14.4, 2026-09-11).
+# The build itself runs on a python-build-standalone CPython 3.14.7 (pinned in
+# build_linux.sh), which targets an old glibc so the result runs on older
+# distributions too.
+# spglib in particular has changed the order of its operations between releases;
+# see the note in requirements.txt.
+#
+# pymatgen pulls in matplotlib, plotly, sympy, networkx and more. They get
+# installed here but are left out of the build (excludes in symmetry_view.spec).
+-r ../requirements.txt
+numpy==2.5.2
+scipy==1.18.0
+pymatgen==2026.5.4
+pymatgen-core==2026.8.13
+spglib==2.7.0
+pillow==12.3.0
+pandas==3.0.5
+monty==2026.7.16
+ruamel.yaml==0.19.1
+orjson==3.12.0
+tabulate==0.10.0
+pyinstaller==6.22.2
+pyinstaller-hooks-contrib==2026.7

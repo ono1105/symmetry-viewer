@@ -1,0 +1,20 @@
+# Runtime dependencies for the Web viewer, which is the default and only
+# start-up path (scripts/serve.sh). PyVista is NOT here: it is needed only by
+# `--with-pyvista` and by the test suite, and it drags in VTK at ~670MB. See
+# requirements-pyvista.txt.
+#
+# Lower bounds only, so the viewer installs across Python versions. If a future
+# release breaks something, compare against the set below before bisecting.
+#
+# Verified 2026-08-15 on Python 3.14.4 (Linux), 222 tests OK:
+#   numpy 2.5.2  pymatgen 2026.5.4 (pymatgen-core 2026.8.13)  spglib 2.7.0
+#   pillow 12.3.0  scipy 1.18.0
+#
+# Note: spglib orders its symmetry operations however it likes, and the order has
+# changed between releases. Nothing here may depend on it -- see
+# identify_generation_operation() in crystal_viewer/structure_analysis.py, which
+# was picking the closest match and let 1e-16 rounding noise choose a winner.
+numpy>=1.26
+pymatgen>=2024.5
+spglib>=2.4
+pillow>=10.0

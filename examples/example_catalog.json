@@ -1,0 +1,690 @@
+{
+  "crystal": [
+    {
+      "kind": "crystal",
+      "name": "Anatase",
+      "path": "examples/cif/Anatase.cif",
+      "formula": "TiO2",
+      "display_formula": "TiO2",
+      "symmetry": "No. 141 I4_1/amd",
+      "point_group": "4/mmm",
+      "puzzle_counts": {
+        "axis": 3,
+        "operation_normal": 15,
+        "operation_hard": 15,
+        "composition": 28,
+        "mapping": 0,
+        "point_group": 1
+      },
+      "beyond_quiz_vocabulary": false
+    },
+    {
+      "kind": "crystal",
+      "name": "BaTiO3",
+      "path": "examples/cif/BaTiO3.cif",
+      "formula": "BaTiO3",
+      "display_formula": "BaTiO3",
+      "symmetry": "No. 160 R3m",
+      "point_group": "3m",
+      "puzzle_counts": {
+        "axis": 1,
+        "operation_normal": 5,
+        "operation_hard": 0,
+        "composition": 14,
+        "mapping": 0,
+        "point_group": 1
+      },
+      "beyond_quiz_vocabulary": false
+    },
+    {
+      "kind": "crystal",
+      "name": "Copper",
+      "path": "examples/cif/Copper.cif",
+      "formula": "Cu",
+      "display_formula": "Cu",
+      "symmetry": "No. 225 Fm-3m",
+      "point_group": "m-3m",
+      "puzzle_counts": {
+        "axis": 3,
+        "operation_normal": 137,
+        "operation_hard": 51,
+        "composition": 56,
+        "mapping": 0,
+        "point_group": 1
+      },
+      "beyond_quiz_vocabulary": false
+    },
+    {
+      "kind": "crystal",
+      "name": "CsCl",
+      "path": "examples/cif/CsCl.cif",
+      "formula": "CsCl",
+      "display_formula": "CsCl",
+      "symmetry": "No. 221 Pm-3m",
+      "point_group": "m-3m",
+      "puzzle_counts": {
+        "axis": 3,
+        "operation_normal": 14,
+        "operation_hard": 0,
+        "composition": 56,
+        "mapping": 0,
+        "point_group": 1
+      },
+      "beyond_quiz_vocabulary": false
+    },
+    {
+      "kind": "crystal",
+      "name": "Diamond",
+      "path": "examples/cif/Diamond.cif",
+      "formula": "C",
+      "display_formula": "C",
+      "symmetry": "No. 227 Fd-3m",
+      "point_group": "m-3m",
+      "puzzle_counts": {
+        "axis": 3,
+        "operation_normal": 122,
+        "operation_hard": 66,
+        "composition": 48,
+        "mapping": 0,
+        "point_group": 1
+      },
+      "beyond_quiz_vocabulary": false
+    },
+    {
+      "kind": "crystal",
+      "name": "Fluorite",
+      "path": "examples/cif/Fluorite.cif",
+      "formula": "CaF2",
+      "display_formula": "CaF2",
+      "symmetry": "No. 225 Fm-3m",
+      "point_group": "m-3m",
+      "puzzle_counts": {
+        "axis": 3,
+        "operation_normal": 137,
+        "operation_hard": 51,
+        "composition": 56,
+        "mapping": 0,
+        "point_group": 1
+      },
+      "beyond_quiz_vocabulary": false
+    },
+    {
+      "kind": "crystal",
+      "name": "Graphite",
+      "path": "examples/cif/Graphite.cif",
+      "formula": "C",
+      "display_formula": "C",
+      "symmetry": "No. 194 P6_3/mmc",
+      "point_group": "6/mmm",
+      "puzzle_counts": {
+        "axis": 3,
+        "operation_normal": 17,
+        "operation_hard": 6,
+        "composition": 48,
+        "mapping": 0,
+        "point_group": 1
+      },
+      "beyond_quiz_vocabulary": false
+    },
+    {
+      "kind": "crystal",
+      "name": "Halite",
+      "path": "examples/cif/Halite.cif",
+      "formula": "NaCl",
+      "display_formula": "NaCl",
+      "symmetry": "No. 225 Fm-3m",
+      "point_group": "m-3m",
+      "puzzle_counts": {
+        "axis": 3,
+        "operation_normal": 137,
+        "operation_hard": 51,
+        "composition": 56,
+        "mapping": 0,
+        "point_group": 1
+      },
+      "beyond_quiz_vocabulary": false
+    },
+    {
+      "kind": "crystal",
+      "name": "Iron-alpha",
+      "path": "examples/cif/Iron-alpha.cif",
+      "formula": "Fe",
+      "display_formula": "Fe",
+      "symmetry": "No. 229 Im-3m",
+      "point_group": "m-3m",
+      "puzzle_counts": {
+        "axis": 3,
+        "operation_normal": 22,
+        "operation_hard": 14,
+        "composition": 56,
+        "mapping": 0,
+        "point_group": 1
+      },
+      "beyond_quiz_vocabulary": false
+    },
+    {
+      "kind": "crystal",
+      "name": "Iron-gamma",
+      "path": "examples/cif/Iron-gamma.cif",
+      "formula": "Fe",
+      "display_formula": "Fe",
+      "symmetry": "No. 225 Fm-3m",
+      "point_group": "m-3m",
+      "puzzle_counts": {
+        "axis": 3,
+        "operation_normal": 137,
+        "operation_hard": 51,
+        "composition": 56,
+        "mapping": 0,
+        "point_group": 1
+      },
+      "beyond_quiz_vocabulary": false
+    },
+    {
+      "kind": "crystal",
+      "name": "Magnesium",
+      "path": "examples/cif/Magnesium.cif",
+      "formula": "Mg",
+      "display_formula": "Mg",
+      "symmetry": "No. 194 P6_3/mmc",
+      "point_group": "6/mmm",
+      "puzzle_counts": {
+        "axis": 3,
+        "operation_normal": 17,
+        "operation_hard": 6,
+        "composition": 48,
+        "mapping": 0,
+        "point_group": 1
+      },
+      "beyond_quiz_vocabulary": false
+    },
+    {
+      "kind": "crystal",
+      "name": "Perovskite",
+      "path": "examples/cif/Perovskite.cif",
+      "formula": "SrTiO3",
+      "display_formula": "SrTiO3",
+      "symmetry": "No. 221 Pm-3m",
+      "point_group": "m-3m",
+      "puzzle_counts": {
+        "axis": 3,
+        "operation_normal": 47,
+        "operation_hard": 0,
+        "composition": 56,
+        "mapping": 0,
+        "point_group": 1
+      },
+      "beyond_quiz_vocabulary": false
+    },
+    {
+      "kind": "crystal",
+      "name": "Pyrite",
+      "path": "examples/cif/Pyrite.cif",
+      "formula": "FeS2",
+      "display_formula": "FeS2",
+      "symmetry": "No. 205 Pa-3",
+      "point_group": "m-3",
+      "puzzle_counts": {
+        "axis": 1,
+        "operation_normal": 17,
+        "operation_hard": 6,
+        "composition": 24,
+        "mapping": 0,
+        "point_group": 1
+      },
+      "beyond_quiz_vocabulary": false
+    },
+    {
+      "kind": "crystal",
+      "name": "Quartz",
+      "path": "examples/cif/Quartz.cif",
+      "formula": "SiO2",
+      "display_formula": "SiO2",
+      "symmetry": "No. 152 P3_121",
+      "point_group": "32",
+      "puzzle_counts": {
+        "axis": 1,
+        "operation_normal": 3,
+        "operation_hard": 2,
+        "composition": 0,
+        "mapping": 0,
+        "point_group": 1
+      },
+      "beyond_quiz_vocabulary": false
+    },
+    {
+      "kind": "crystal",
+      "name": "Rutile",
+      "path": "examples/cif/Rutile.cif",
+      "formula": "TiO2",
+      "display_formula": "TiO2",
+      "symmetry": "No. 136 P4_2/mnm",
+      "point_group": "4/mmm",
+      "puzzle_counts": {
+        "axis": 2,
+        "operation_normal": 9,
+        "operation_hard": 6,
+        "composition": 26,
+        "mapping": 0,
+        "point_group": 1
+      },
+      "beyond_quiz_vocabulary": false
+    },
+    {
+      "kind": "crystal",
+      "name": "Sphalerite",
+      "path": "examples/cif/Sphalerite.cif",
+      "formula": "ZnS",
+      "display_formula": "ZnS",
+      "symmetry": "No. 216 F-43m",
+      "point_group": "-43m",
+      "puzzle_counts": {
+        "axis": 2,
+        "operation_normal": 74,
+        "operation_hard": 18,
+        "composition": 32,
+        "mapping": 0,
+        "point_group": 1
+      },
+      "beyond_quiz_vocabulary": false
+    },
+    {
+      "kind": "crystal",
+      "name": "Zincite",
+      "path": "examples/cif/Zincite.cif",
+      "formula": "ZnO",
+      "display_formula": "ZnO",
+      "symmetry": "No. 186 P6_3mc",
+      "point_group": "6mm",
+      "puzzle_counts": {
+        "axis": 1,
+        "operation_normal": 5,
+        "operation_hard": 6,
+        "composition": 14,
+        "mapping": 0,
+        "point_group": 1
+      },
+      "beyond_quiz_vocabulary": false
+    }
+  ],
+  "molecule": [
+    {
+      "kind": "molecule",
+      "name": "al12w_icosahedron",
+      "path": "examples/molecules/al12w_icosahedron.xyz",
+      "formula": "Al12W",
+      "display_formula": "WAl12",
+      "symmetry": "Ih",
+      "point_group": "Ih",
+      "puzzle_counts": {
+        "axis": 2,
+        "operation_normal": 71,
+        "operation_hard": 0,
+        "composition": 40,
+        "mapping": 30,
+        "point_group": 1
+      },
+      "beyond_quiz_vocabulary": true
+    },
+    {
+      "kind": "molecule",
+      "name": "allene",
+      "path": "examples/molecules/allene.xyz",
+      "formula": "H4C3",
+      "display_formula": "C3H4",
+      "symmetry": "D2d",
+      "point_group": "D2d",
+      "puzzle_counts": {
+        "axis": 2,
+        "operation_normal": 7,
+        "operation_hard": 0,
+        "composition": 24,
+        "mapping": 16,
+        "point_group": 1
+      },
+      "beyond_quiz_vocabulary": false
+    },
+    {
+      "kind": "molecule",
+      "name": "ammonia",
+      "path": "examples/molecules/ammonia.xyz",
+      "formula": "H3N",
+      "display_formula": "NH3",
+      "symmetry": "C3v",
+      "point_group": "C3v",
+      "puzzle_counts": {
+        "axis": 1,
+        "operation_normal": 5,
+        "operation_hard": 0,
+        "composition": 14,
+        "mapping": 12,
+        "point_group": 1
+      },
+      "beyond_quiz_vocabulary": false
+    },
+    {
+      "kind": "molecule",
+      "name": "anti_dibromodichloroethane",
+      "path": "examples/molecules/anti_dibromodichloroethane.xyz",
+      "formula": "HCBrCl",
+      "display_formula": "C2H2Br2Cl2",
+      "symmetry": "Ci",
+      "point_group": "Ci",
+      "puzzle_counts": {
+        "axis": 0,
+        "operation_normal": 1,
+        "operation_hard": 0,
+        "composition": 0,
+        "mapping": 6,
+        "point_group": 1
+      },
+      "beyond_quiz_vocabulary": false
+    },
+    {
+      "kind": "molecule",
+      "name": "benzene",
+      "path": "examples/molecules/benzene.xyz",
+      "formula": "HC",
+      "display_formula": "C6H6",
+      "symmetry": "D6h",
+      "point_group": "D6h",
+      "puzzle_counts": {
+        "axis": 3,
+        "operation_normal": 18,
+        "operation_hard": 0,
+        "composition": 56,
+        "mapping": 42,
+        "point_group": 1
+      },
+      "beyond_quiz_vocabulary": false
+    },
+    {
+      "kind": "molecule",
+      "name": "boron_trifluoride",
+      "path": "examples/molecules/boron_trifluoride.xyz",
+      "formula": "BF3",
+      "display_formula": "BF3",
+      "symmetry": "D3h",
+      "point_group": "D3h",
+      "puzzle_counts": {
+        "axis": 2,
+        "operation_normal": 8,
+        "operation_hard": 0,
+        "composition": 32,
+        "mapping": 24,
+        "point_group": 1
+      },
+      "beyond_quiz_vocabulary": false
+    },
+    {
+      "kind": "molecule",
+      "name": "bromine_pentafluoride",
+      "path": "examples/molecules/bromine_pentafluoride.xyz",
+      "formula": "BrF5",
+      "display_formula": "BrF5",
+      "symmetry": "C4v",
+      "point_group": "C4v",
+      "puzzle_counts": {
+        "axis": 1,
+        "operation_normal": 7,
+        "operation_hard": 0,
+        "composition": 20,
+        "mapping": 16,
+        "point_group": 1
+      },
+      "beyond_quiz_vocabulary": false
+    },
+    {
+      "kind": "molecule",
+      "name": "bromochlorofluoromethane",
+      "path": "examples/molecules/bromochlorofluoromethane.xyz",
+      "formula": "HCBrClF",
+      "display_formula": "CHBrClF",
+      "symmetry": "C1",
+      "point_group": "C1",
+      "puzzle_counts": {
+        "axis": 0,
+        "operation_normal": 0,
+        "operation_hard": 0,
+        "composition": 0,
+        "mapping": 0,
+        "point_group": 1
+      },
+      "beyond_quiz_vocabulary": false
+    },
+    {
+      "kind": "molecule",
+      "name": "carbon_dioxide",
+      "path": "examples/molecules/carbon_dioxide.xyz",
+      "formula": "CO2",
+      "display_formula": "CO2",
+      "symmetry": "D∞h",
+      "point_group": "D∞h",
+      "puzzle_counts": {
+        "axis": 1,
+        "operation_normal": 1,
+        "operation_hard": 0,
+        "composition": 0,
+        "mapping": 4,
+        "point_group": 1
+      },
+      "beyond_quiz_vocabulary": false
+    },
+    {
+      "kind": "molecule",
+      "name": "chlorofluoromethane",
+      "path": "examples/molecules/chlorofluoromethane.xyz",
+      "formula": "H2CClF",
+      "display_formula": "CH2ClF",
+      "symmetry": "Cs",
+      "point_group": "Cs",
+      "puzzle_counts": {
+        "axis": 0,
+        "operation_normal": 1,
+        "operation_hard": 0,
+        "composition": 0,
+        "mapping": 2,
+        "point_group": 1
+      },
+      "beyond_quiz_vocabulary": false
+    },
+    {
+      "kind": "molecule",
+      "name": "ethane",
+      "path": "examples/molecules/ethane.xyz",
+      "formula": "H3C",
+      "display_formula": "C2H6",
+      "symmetry": "D3d",
+      "point_group": "D3d",
+      "puzzle_counts": {
+        "axis": 2,
+        "operation_normal": 11,
+        "operation_hard": 0,
+        "composition": 40,
+        "mapping": 30,
+        "point_group": 1
+      },
+      "beyond_quiz_vocabulary": false
+    },
+    {
+      "kind": "molecule",
+      "name": "ethene",
+      "path": "examples/molecules/ethene.xyz",
+      "formula": "H2C",
+      "display_formula": "C2H4",
+      "symmetry": "D2h",
+      "point_group": "D2h",
+      "puzzle_counts": {
+        "axis": 3,
+        "operation_normal": 6,
+        "operation_hard": 0,
+        "composition": 20,
+        "mapping": 18,
+        "point_group": 1
+      },
+      "beyond_quiz_vocabulary": false
+    },
+    {
+      "kind": "molecule",
+      "name": "hydrogen_chloride",
+      "path": "examples/molecules/hydrogen_chloride.xyz",
+      "formula": "HCl",
+      "display_formula": "HCl",
+      "symmetry": "C∞v",
+      "point_group": "C∞v",
+      "puzzle_counts": {
+        "axis": 1,
+        "operation_normal": 0,
+        "operation_hard": 0,
+        "composition": 0,
+        "mapping": 0,
+        "point_group": 1
+      },
+      "beyond_quiz_vocabulary": false
+    },
+    {
+      "kind": "molecule",
+      "name": "hydrogen_peroxide",
+      "path": "examples/molecules/hydrogen_peroxide.xyz",
+      "formula": "H2O2",
+      "display_formula": "H2O2",
+      "symmetry": "C2",
+      "point_group": "C2",
+      "puzzle_counts": {
+        "axis": 1,
+        "operation_normal": 1,
+        "operation_hard": 0,
+        "composition": 0,
+        "mapping": 4,
+        "point_group": 1
+      },
+      "beyond_quiz_vocabulary": false
+    },
+    {
+      "kind": "molecule",
+      "name": "mackay_icosahedron",
+      "path": "examples/molecules/mackay_icosahedron.xyz",
+      "formula": "Mn2Al7",
+      "display_formula": "Mn12Al42",
+      "symmetry": "Ih",
+      "point_group": "Ih",
+      "puzzle_counts": {
+        "axis": 2,
+        "operation_normal": 71,
+        "operation_hard": 0,
+        "composition": 40,
+        "mapping": 30,
+        "point_group": 1
+      },
+      "beyond_quiz_vocabulary": true
+    },
+    {
+      "kind": "molecule",
+      "name": "methane",
+      "path": "examples/molecules/methane.xyz",
+      "formula": "H4C",
+      "display_formula": "CH4",
+      "symmetry": "Td",
+      "point_group": "Td",
+      "puzzle_counts": {
+        "axis": 2,
+        "operation_normal": 23,
+        "operation_hard": 0,
+        "composition": 32,
+        "mapping": 24,
+        "point_group": 1
+      },
+      "beyond_quiz_vocabulary": false
+    },
+    {
+      "kind": "molecule",
+      "name": "phosphorus_pentafluoride",
+      "path": "examples/molecules/phosphorus_pentafluoride.xyz",
+      "formula": "PF5",
+      "display_formula": "PF5",
+      "symmetry": "D3h",
+      "point_group": "D3h",
+      "puzzle_counts": {
+        "axis": 2,
+        "operation_normal": 11,
+        "operation_hard": 0,
+        "composition": 32,
+        "mapping": 24,
+        "point_group": 1
+      },
+      "beyond_quiz_vocabulary": false
+    },
+    {
+      "kind": "molecule",
+      "name": "sulfur_hexafluoride",
+      "path": "examples/molecules/sulfur_hexafluoride.xyz",
+      "formula": "SF6",
+      "display_formula": "SF6",
+      "symmetry": "Oh",
+      "point_group": "Oh",
+      "puzzle_counts": {
+        "axis": 3,
+        "operation_normal": 47,
+        "operation_hard": 0,
+        "composition": 56,
+        "mapping": 42,
+        "point_group": 1
+      },
+      "beyond_quiz_vocabulary": false
+    },
+    {
+      "kind": "molecule",
+      "name": "trans_dichloroethene",
+      "path": "examples/molecules/trans_dichloroethene.xyz",
+      "formula": "HCCl",
+      "display_formula": "C2H2Cl2",
+      "symmetry": "C2h",
+      "point_group": "C2h",
+      "puzzle_counts": {
+        "axis": 1,
+        "operation_normal": 2,
+        "operation_hard": 0,
+        "composition": 0,
+        "mapping": 12,
+        "point_group": 1
+      },
+      "beyond_quiz_vocabulary": false
+    },
+    {
+      "kind": "molecule",
+      "name": "water",
+      "path": "examples/molecules/water.xyz",
+      "formula": "H2O",
+      "display_formula": "H2O",
+      "symmetry": "C2v",
+      "point_group": "C2v",
+      "puzzle_counts": {
+        "axis": 1,
+        "operation_normal": 2,
+        "operation_hard": 0,
+        "composition": 0,
+        "mapping": 4,
+        "point_group": 1
+      },
+      "beyond_quiz_vocabulary": false
+    },
+    {
+      "kind": "molecule",
+      "name": "xenon_tetrafluoride",
+      "path": "examples/molecules/xenon_tetrafluoride.xyz",
+      "formula": "XeF4",
+      "display_formula": "XeF4",
+      "symmetry": "D4h",
+      "point_group": "D4h",
+      "puzzle_counts": {
+        "axis": 3,
+        "operation_normal": 12,
+        "operation_hard": 0,
+        "composition": 40,
+        "mapping": 28,
+        "point_group": 1
+      },
+      "beyond_quiz_vocabulary": false
+    }
+  ]
+}
