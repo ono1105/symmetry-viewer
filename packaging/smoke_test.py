@@ -13,6 +13,8 @@ given command with --no-browser and then, as the browser would:
 - imports every bundled CIF/XYZ as if it were the user's own file, which runs
   the whole analysis in a worker process, so a module left out of the build
   shows up here;
+- uploads one molecule three times, saved with LF, CRLF and CR newlines, and
+  checks what the analysis made of it;
 - asks each quiz for its questions and writes a GIF.
 
 --quick keeps the cell and import steps to one crystal and one molecule.
@@ -149,6 +151,57 @@ class SmokeTest:
                 content = source.read_text(encoding="utf-8")
                 self.post_ok(f"import {source.name}", path, {"filename": source.name, "content": content})
 
+    def check_newlines(self) -> None:
+        """Upload the same molecule with each newline convention.
+
+        Notepad saves CRLF, so this is what a Windows user's own file looks
+        like. It used to fail there and only there: the upload was written back
+        in text mode, Windows turned every "\\n" into "\\r\\n" a second time, and
+        the file read back with a blank line between every line, which the XYZ
+        parser could not take. The bundled examples cannot cover this -- reading
+        one with read_text() strips the carriage returns before the server ever
+        sees them -- so build the content here instead. CIF goes through the
+        same upload path, so guarding XYZ guards both.
+
+        **On Linux this passes whether or not the fix is in place**, because
+        nothing doubles the newlines on the way to disk and Python's universal
+        newlines absorb a bare CR on the way back. It is the Windows run of this
+        smoke test that does the work. Reproducing the Windows write on Linux
+        (normalization removed, newline="\\r\\n") fails on CRLF alone, exactly as
+        the machine did, so the check is known to catch the bug it guards.
+        """
+        print("uploads with each newline convention (a file saved on Windows arrives as CRLF)")
+        water = (
+            "3\nwater\n"
+            "O 0.000000 0.000000 0.117300\n"
+            "H 0.000000 0.757200 -0.469200\n"
+            "H 0.000000 -0.757200 -0.469200\n"
+        )
+        for label, content in (
+            ("LF", water),
+            ("CRLF", water.replace("\n", "\r\n")),
+            ("CR", water.replace("\n", "\r")),
+        ):
+            if not self.post_ok(
+                f"import a molecule saved with {label} newlines",
+                "/api/import_molecule",
+                {"filename": f"newline_{label}.xyz", "content": content},
+            ):
+                continue
+            # "ok" is not enough. A file that reaches the parser mangled can
+            # still come back as a molecule -- just the wrong one.
+            status, body = self.request("/api/state")
+            metadata = (json.loads(body).get("metadata") or {}) if status == 200 else {}
+            found = (
+                metadata.get("display_formula") or metadata.get("formula"),
+                metadata.get("point_group_label"),
+                metadata.get("operation_count"),
+            )
+            if found == ("H2O", "C2v", 4):
+                print(f"  ok    {label} -> H2O, C2v, 4 operations")
+            else:
+                self.fail(f"{label} newlines analyzed as {found}, expected ('H2O', 'C2v', 4)")
+
     def check_quizzes(self, molecule: dict | None) -> None:
         print("quizzes")
         if molecule is not None:
@@ -228,6 +281,7 @@ def main() -> int:
         some_molecules = molecules[:1] if args.quick else molecules
         test.convert_cells(some_crystals)
         test.import_files(root, some_crystals, some_molecules)
+        test.check_newlines()
         test.check_quizzes(molecules[0] if molecules else None)
         test.check_gif()
     finally:
