@@ -748,7 +748,15 @@ def write_uploaded_text(filename: str, content: str, *, upload_dir: Path, suffix
     slug = slug_from_path(filename or "uploaded_structure")
     path = upload_dir / f"{slug}{suffix}"
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(content, encoding="utf-8")
+    # The browser sends the file's text with its newlines intact, so a file
+    # written on Windows arrives with CRLF.  Writing that back in text mode on
+    # Windows translates every "\n" into "\r\n" a second time: the file on disk
+    # holds "\r\r\n" and reads back with a blank line between every line, which
+    # the XYZ parser cannot take (IndexError in pymatgen's frame parser).
+    # Normalize the newlines and write them through unchanged so the bytes on
+    # disk are the same on every platform.
+    content = content.replace("\r\n", "\n").replace("\r", "\n")
+    path.write_text(content, encoding="utf-8", newline="\n")
     return path
 
 
@@ -758,6 +766,32 @@ def write_uploaded_cif(filename: str, content: str) -> Path:
 
 def write_uploaded_molecule(filename: str, content: str) -> Path:
     return write_uploaded_text(filename, content, upload_dir=UPLOAD_MOLECULE_DIR, suffix=".xyz", label="Molecule")
+
+
+def parse_load_request_id(payload: dict, *, now_ms: float | None = None) -> int:
+    """The load request id a client sent, validated and clamped to our clock.
+
+    A non-integer id used to raise out of the request handler, which answered
+    nothing at all and dropped the connection.  An id far in the future used to
+    be stored as-is, and every later load lost the max(stored, incoming)
+    comparison and came back {"ok": false, "stale": true} until the real clock
+    caught up.
+    """
+    raw = payload.get("request_id") or 0
+    try:
+        request_id = int(raw)
+    except (TypeError, ValueError):
+        raise ValueError(f"request_id must be an integer: {raw!r}") from None
+    if request_id < 0:
+        raise ValueError(f"request_id must not be negative: {request_id}")
+    if now_ms is None:
+        now_ms = time.time() * 1000.0
+    # An id ahead of our own clock counts as "now".  Ordering still holds --
+    # a load that arrives later clamps to a later "now" -- and no single load
+    # can park load_request_id in the future, where it would discard every
+    # later load.  Allowing a skew window here would not do: loads sent inside
+    # that window would still be dropped in silence.
+    return min(request_id, int(now_ms))
 
 
 def make_handler(
@@ -773,6 +807,13 @@ def make_handler(
     default_display_mode: str,
     initial_app_mode: str = "select",
 ) -> type[BaseHTTPRequestHandler]:
+    # import_in_progress has to follow the loads that are actually running.  It
+    # used to be a plain flag that a load set on arrival and cleared only if it
+    # was still the current one, so a load discarded as stale left it set for
+    # good and every later cell-setting change was refused.  shared_state is
+    # replaced wholesale on a load, so the count lives outside it.
+    loads_in_flight = {"count": 0}
+
     class Handler(BaseHTTPRequestHandler):
         def do_GET(self) -> None:
             parsed_url = urlparse(self.path)
@@ -780,6 +821,16 @@ def make_handler(
             if path == "/":
                 page = HTML.replace("__INITIAL_APP_MODE__", json.dumps(initial_app_mode))
                 self.send_bytes(page.encode("utf-8"), content_type="text/html; charset=utf-8")
+                return
+            if path == "/favicon.ico":
+                # Browsers ask for this on their own.  Answer "no content" so
+                # the console does not carry a 404 nobody can act on.
+                try:
+                    self.send_response(204)
+                    self.send_header("Content-Length", "0")
+                    self.end_headers()
+                except (BrokenPipeError, ConnectionResetError):
+                    pass
                 return
             if path == "/static/animation_path.js":
                 module_path = PROJECT_ROOT / "crystal_viewer" / "web" / "animation_path.js"
@@ -1136,6 +1187,16 @@ def make_handler(
             self.send_error(404)
 
         def do_POST(self) -> None:
+            # An exception raised out of the handler answers nothing at all and
+            # drops the connection, which reaches the browser as a network
+            # error with no status to report.  Answer 500 instead.
+            try:
+                self.dispatch_post()
+            except Exception as exc:
+                logging.exception("Unhandled error while handling POST %s", self.path)
+                self.send_json_error(f"unexpected server error: {exc}", status=500)
+
+        def dispatch_post(self) -> None:
             path = urlparse(self.path).path
             length = int(self.headers.get("Content-Length", "0"))
             if length > MAX_REQUEST_BODY_BYTES:
@@ -1411,7 +1472,11 @@ def make_handler(
 
         def handle_open_example(self, payload: dict) -> None:
             started_at = time.monotonic()
-            request_id = self.reserve_load_request(payload)
+            try:
+                request_id = self.reserve_load_request(payload)
+            except ValueError as exc:
+                self.send_json_error(str(exc), status=400)
+                return
             kind = normalize_source_kind(str(payload.get("kind") or ""))
             requested_path = str(payload.get("path") or "")
             try:
@@ -1435,14 +1500,18 @@ def make_handler(
                 debug_import_timing("example response", started_at)
             except Exception as exc:
                 with state_lock:
-                    self.clear_import_if_current(request_id)
+                    self.release_load_request_locked()
                     shared_state["import_status"] = f"example load failed: {exc}"
                     body = {"ok": False, "error": str(exc), "state": dict(shared_state)}
                 self.send_json(body)
+            finally:
+                self.release_load_request()
 
         def reserve_load_request(self, payload: dict) -> int:
-            request_id = int(payload.get("request_id") or 0)
+            request_id = parse_load_request_id(payload)
             with state_lock:
+                loads_in_flight["count"] += 1
+                self.load_request_released = False
                 shared_state["load_request_id"] = max(
                     int(shared_state.get("load_request_id") or 0),
                     request_id,
@@ -1450,16 +1519,33 @@ def make_handler(
                 shared_state["import_in_progress"] = True
             return request_id
 
+        def release_load_request(self) -> None:
+            with state_lock:
+                self.release_load_request_locked()
+
+        def release_load_request_locked(self) -> None:
+            """Report this load as finished, however it ended.
+
+            Called once per reserved load -- the second call is a no-op, so a
+            handler can release early to answer with an accurate state and still
+            keep the release in its finally clause.
+            """
+            if getattr(self, "load_request_released", True):
+                return
+            self.load_request_released = True
+            loads_in_flight["count"] = max(0, loads_in_flight["count"] - 1)
+            shared_state["import_in_progress"] = loads_in_flight["count"] > 0
+
         def load_request_is_current(self, request_id: int) -> bool:
             return request_id == 0 or request_id == int(shared_state.get("load_request_id") or 0)
 
-        def clear_import_if_current(self, request_id: int) -> None:
-            if self.load_request_is_current(request_id):
-                shared_state["import_in_progress"] = False
-
         def handle_import_cif(self, payload: dict) -> None:
             started_at = time.monotonic()
-            request_id = self.reserve_load_request(payload)
+            try:
+                request_id = self.reserve_load_request(payload)
+            except ValueError as exc:
+                self.send_json_error(str(exc), status=400)
+                return
             filename = str(payload.get("filename") or "uploaded_structure.cif")
             content = str(payload.get("content") or "")
             try:
@@ -1483,14 +1569,20 @@ def make_handler(
                 debug_import_timing("cif response", started_at)
             except Exception as exc:
                 with state_lock:
-                    self.clear_import_if_current(request_id)
+                    self.release_load_request_locked()
                     shared_state["import_status"] = f"import failed: {exc}"
                     body = {"ok": False, "error": str(exc), "state": dict(shared_state)}
                 self.send_json(body)
+            finally:
+                self.release_load_request()
 
         def handle_import_molecule(self, payload: dict) -> None:
             started_at = time.monotonic()
-            request_id = self.reserve_load_request(payload)
+            try:
+                request_id = self.reserve_load_request(payload)
+            except ValueError as exc:
+                self.send_json_error(str(exc), status=400)
+                return
             filename = str(payload.get("filename") or "uploaded_molecule.xyz")
             content = str(payload.get("content") or "")
             try:
@@ -1514,10 +1606,12 @@ def make_handler(
                 debug_import_timing("molecule response", started_at)
             except Exception as exc:
                 with state_lock:
-                    self.clear_import_if_current(request_id)
+                    self.release_load_request_locked()
                     shared_state["import_status"] = f"molecule import failed: {exc}"
                     body = {"ok": False, "error": str(exc), "state": dict(shared_state)}
                 self.send_json(body)
+            finally:
+                self.release_load_request()
 
         def handle_cell_setting(self, payload: dict) -> None:
             mode = str(payload.get("cell_setting_mode") or payload.get("mode") or "native")

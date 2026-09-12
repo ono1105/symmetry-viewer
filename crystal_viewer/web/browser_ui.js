@@ -951,7 +951,7 @@ function renderStructureInfo() {
     sourceKind,
     selectedStructureKind,
     sourceFile: metadata.source_file || state.json_path,
-    formula: metadata.formula,
+    formula: metadataFormula(metadata),
     symmetryLabel: metadata.symmetry_label,
     pointGroupLabel: metadata.point_group_label,
     operationCount: metadata.operation_count || operations.length,
@@ -977,13 +977,13 @@ function renderStructureInfo() {
   );
   const summaryItems = [
     ["構造", structureDisplayName(metadata.source_file || state.json_path)],
-    ["化学式", metadata.formula || "-"],
+    ["化学式", metadataFormula(metadata) || "-"],
     ["点群", pointGroup],
     ["操作", operationCount],
   ];
   root.innerHTML = "";
   appendSummaryGrid(root, summaryItems, "primary");
-  headerSummary.textContent = `${structureDisplayName(metadata.source_file || state.json_path)} · ${metadata.formula || "-"} · ${stripHtmlWithOverbars(pointGroup)} · ${operationCount}操作`;
+  headerSummary.textContent = `${structureDisplayName(metadata.source_file || state.json_path)} · ${metadataFormula(metadata) || "-"} · ${stripHtmlWithOverbars(pointGroup)} · ${operationCount}操作`;
   headerSummary.hidden = false;
 
   if (experienceMode === "advanced") {
@@ -1210,7 +1210,8 @@ function renderExampleOptions() {
     menuItem.className = "rich-select-option";
     menuItem.dataset.value = item.path;
     const prefix = document.createElement("span");
-    prefix.textContent = `${item.formula ? `${item.formula} ` : ""}${item.name}`;
+    const itemFormula = exampleFormula(item);
+    prefix.textContent = `${itemFormula ? `${itemFormula} ` : ""}${item.name}`;
     menuItem.appendChild(prefix);
     if (item.symmetry) {
       menuItem.appendChild(document.createTextNode(" — "));
@@ -1277,6 +1278,14 @@ function exampleOptionText(item) {
   const formula = exampleFormula(item) ? `${exampleFormula(item)} ` : "";
   const symmetry = item.symmetry ? formatPlainOverbar(formatSymbol(item.symmetry)) : "";
   return symmetry ? `${formula}${item.name} — ${symmetry}` : `${formula}${item.name}`;
+}
+
+function metadataFormula(metadata) {
+  // display_formula keeps molecules readable (C6H6 rather than the reduced HC,
+  // Mn12Al42 rather than Mn2Al7). The two agree for crystals. The example
+  // picker already reads it through exampleFormula(); the structure panel and
+  // the header subtitle have to agree with the name the picker showed.
+  return metadata.display_formula || metadata.formula || "";
 }
 
 function beginImport(message) {
@@ -2354,6 +2363,11 @@ async function applyLoadedStructure(result, fallbackError, examplePath = "", con
   if (result.stale) {
     state = result.state || state;
     renderStatus();
+    // The server discarded this load because a newer one had already claimed
+    // the slot. Say so: returning silently made a load that never arrived look
+    // exactly like a button that did nothing.
+    document.getElementById("status").textContent =
+      "Load cancelled: a newer load replaced this one. Try opening the structure again.";
     return;
   }
   if (!result.ok) {
