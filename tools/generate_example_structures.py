@@ -397,11 +397,11 @@ CRYSTALS: tuple[CrystalSpec, ...] = (
     ),
     CrystalSpec(
         stem="Quartz", space_group=152, symbol="P3_121",
-        lattice=Lattice.hexagonal(4.9134, 5.4052),
+        lattice=Lattice.hexagonal(4.916, 5.4054),
         species=("Si", "O"),
         coords=((0.4697, 0.0, 1 / 3), (0.4135, 0.2669, 0.1191)),
         wyckoff=("3a", "6c"), atoms=9, formula="SiO2",
-        source="Levien, Prewitt & Weidner, Am. Mineral. 65 (1980) 920, a = 4.9134, c = 5.4052 A",
+        source="Levien, Prewitt & Weidner, Am. Mineral. 65 (1980) 920, 1 atm: a = 4.916, c = 5.4054 A",
         note="Chiral: a 3_1 screw axis and no mirror at all.",
     ),
     CrystalSpec(

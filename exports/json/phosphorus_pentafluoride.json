@@ -263,11 +263,11 @@
       },
       {
         "index": 5,
-        "label": "5: S6 improper_6",
+        "label": "5: S3 improper_6",
         "kind": "improper_6",
         "order": 6,
         "angle_deg": null,
-        "symbol": "S6",
+        "symbol": "S3",
         "matrix_frac": null,
         "translation_frac": null,
         "matrix_cart": [
@@ -391,11 +391,11 @@
       },
       {
         "index": 9,
-        "label": "9: S6 improper_6",
+        "label": "9: S3 improper_6",
         "kind": "improper_6",
         "order": 6,
         "angle_deg": null,
-        "symbol": "S6",
+        "symbol": "S3",
         "matrix_frac": null,
         "translation_frac": null,
         "matrix_cart": [
@@ -547,7 +547,7 @@
           0.0,
           1.0
         ],
-        "label": "S6x2",
+        "label": "S3x2",
         "operation_indices": [
           5,
           9

@@ -5,8 +5,9 @@ way the structure picker renders it -- and the player names its overall point
 group from a small multiple-choice list. Unlike the other four quizzes, which
 each ask about one axis, operation, product or atom, this is a single
 capstone question per structure: the whole structure's own symmetry class,
-already known from ``render_data["metadata"]["point_group_label"]``. No new
-geometry is computed here.
+already known from ``render_data["metadata"]["point_group_label"]``. The only
+geometry computed here is the check that a crystal's drawn cell actually looks
+like that point group (``_displayed_point_group``).
 
 Renderer-independent: consumes ``render_data`` only.
 
@@ -145,6 +146,19 @@ def _order_scale(order: int) -> float:
     return math.log2(max(order, 1))
 
 
+# ∞ is scored as the next fold above the largest finite one in the table (6), so
+# C∞v/D∞h sit just beyond C6v/D6h instead of a million-fold away from everything
+# (which made C1/Ci/Cs tie as HCl's "closest" groups).
+_INFINITE_FOLD_FOR_SCORING = 7
+
+
+def _scoring_values(props: _PointGroupProps) -> tuple[int, int]:
+    if props.order >= _INFINITE_ORDER:
+        fold = _INFINITE_FOLD_FOR_SCORING
+        return (2 if props.family == "Cv" else 4) * fold, fold
+    return props.order, props.principal_order
+
+
 def _similarity_score(a: _PointGroupProps, b: _PointGroupProps) -> float:
     """Lower is more confusable: close order, close principal fold, same family shape.
 
@@ -153,19 +167,58 @@ def _similarity_score(a: _PointGroupProps, b: _PointGroupProps) -> float:
     C2h -- textbook mirror-placement confusions) should rank as more
     confusable than the same family at a different fold (D3h vs D4h).
     """
+    a_order, a_fold = _scoring_values(a)
+    b_order, b_fold = _scoring_values(b)
     family_gap = 0.0 if a.family == b.family else 1.0
-    order_gap = abs(_order_scale(a.order) - _order_scale(b.order))
-    principal_gap = abs(a.principal_order - b.principal_order)
+    order_gap = abs(_order_scale(a_order) - _order_scale(b_order))
+    principal_gap = abs(a_fold - b_fold)
     return family_gap + order_gap + 2.0 * principal_gap
 
 
-def _distractors(correct: str, table: dict[str, _PointGroupProps]) -> list[str]:
+def _distractors(
+    correct: str,
+    table: dict[str, _PointGroupProps],
+    rng: random.Random | None = None,
+) -> list[str]:
+    """The closest groups by score, ties broken at random.
+
+    An alphabetical tie-break always offered the same set for a given answer and
+    favoured C-groups; scores are rounded so float noise cannot decide a tie.
+    """
+    rng = rng or random.Random()
     correct_props = table[correct]
     ranked = sorted(
-        (symbol for symbol in table if symbol != correct),
-        key=lambda symbol: (_similarity_score(correct_props, table[symbol]), symbol),
+        (round(_similarity_score(correct_props, table[symbol]), 6), rng.random(), symbol)
+        for symbol in table
+        if symbol != correct
     )
-    return ranked[:_DISTRACTOR_COUNT]
+    return [symbol for _, _, symbol in ranked[:_DISTRACTOR_COUNT]]
+
+
+def _displayed_point_group(render_data: dict) -> str | None:
+    """Schoenflies symbol of the crystal as the quiz draws it (one cell, boundary images on).
+
+    The finite cell can look lower than the crystal's point group (diamond's looks
+    Td, not m-3m); such a crystal cannot be answered from its shape.
+    """
+    from pymatgen.core import Molecule
+    from pymatgen.symmetry.analyzer import PointGroupAnalyzer
+
+    from crystal_viewer.viewer.display_atoms import display_atom_instances
+
+    instances = display_atom_instances(
+        render_data,
+        display_mode="source",
+        cell_origin_mode="center",
+        include_boundary_images=True,
+    )
+    if not instances:
+        return None
+    molecule = Molecule(
+        [instance["atom"]["element"] for instance in instances],
+        [instance["cart"] for instance in instances],
+    )
+    return PointGroupAnalyzer(molecule, tolerance=0.3).sch_symbol
 
 
 def point_group_question(render_data: dict) -> dict | None:
@@ -182,6 +235,8 @@ def point_group_question(render_data: dict) -> dict | None:
     symbol = str(label)
     table = _CRYSTAL_PROPS if render_data.get("unit_cell") is not None else _SCHOENFLIES
     if symbol not in table:
+        return None
+    if table is _CRYSTAL_PROPS and _displayed_point_group(render_data) != _HM_TO_SCHOENFLIES.get(symbol):
         return None
     distractors = _distractors(symbol, table)
     if not distractors:

@@ -975,15 +975,18 @@ function renderStructureInfo() {
     metadata.point_group_generators,
     {pointGroup: true, groupSymbol: sourceKind !== "crystal"},
   );
+  // C∞v/D∞h are infinite groups; the list holds only representatives.
+  const infiniteGroup = String(metadata.point_group_label || "").includes("∞");
+  const operationCountText = infiniteGroup ? `${operationCount}（無限群の代表のみ）` : operationCount;
   const summaryItems = [
     ["構造", structureDisplayName(metadata.source_file || state.json_path)],
     ["化学式", metadataFormula(metadata) || "-"],
     ["点群", pointGroup],
-    ["操作", operationCount],
+    ["操作", operationCountText],
   ];
   root.innerHTML = "";
   appendSummaryGrid(root, summaryItems, "primary");
-  headerSummary.textContent = `${structureDisplayName(metadata.source_file || state.json_path)} · ${metadataFormula(metadata) || "-"} · ${stripHtmlWithOverbars(pointGroup)} · ${operationCount}操作`;
+  headerSummary.textContent = `${structureDisplayName(metadata.source_file || state.json_path)} · ${metadataFormula(metadata) || "-"} · ${stripHtmlWithOverbars(pointGroup)} · ${operationCount}操作${infiniteGroup ? "（無限群の代表のみ）" : ""}`;
   headerSummary.hidden = false;
 
   if (experienceMode === "advanced") {

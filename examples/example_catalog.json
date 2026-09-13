@@ -14,7 +14,7 @@
         "operation_hard": 15,
         "composition": 28,
         "mapping": 0,
-        "point_group": 1
+        "point_group": 0
       },
       "beyond_quiz_vocabulary": false
     },
@@ -47,7 +47,7 @@
       "puzzle_counts": {
         "axis": 3,
         "operation_normal": 137,
-        "operation_hard": 51,
+        "operation_hard": 48,
         "composition": 56,
         "mapping": 0,
         "point_group": 1
@@ -86,7 +86,7 @@
         "operation_hard": 66,
         "composition": 48,
         "mapping": 0,
-        "point_group": 1
+        "point_group": 0
       },
       "beyond_quiz_vocabulary": false
     },
@@ -101,7 +101,7 @@
       "puzzle_counts": {
         "axis": 3,
         "operation_normal": 137,
-        "operation_hard": 51,
+        "operation_hard": 48,
         "composition": 56,
         "mapping": 0,
         "point_group": 1
@@ -122,7 +122,7 @@
         "operation_hard": 6,
         "composition": 48,
         "mapping": 0,
-        "point_group": 1
+        "point_group": 0
       },
       "beyond_quiz_vocabulary": false
     },
@@ -137,7 +137,7 @@
       "puzzle_counts": {
         "axis": 3,
         "operation_normal": 137,
-        "operation_hard": 51,
+        "operation_hard": 48,
         "composition": 56,
         "mapping": 0,
         "point_group": 1
@@ -155,7 +155,7 @@
       "puzzle_counts": {
         "axis": 3,
         "operation_normal": 22,
-        "operation_hard": 14,
+        "operation_hard": 12,
         "composition": 56,
         "mapping": 0,
         "point_group": 1
@@ -173,7 +173,7 @@
       "puzzle_counts": {
         "axis": 3,
         "operation_normal": 137,
-        "operation_hard": 51,
+        "operation_hard": 48,
         "composition": 56,
         "mapping": 0,
         "point_group": 1
@@ -194,7 +194,7 @@
         "operation_hard": 6,
         "composition": 48,
         "mapping": 0,
-        "point_group": 1
+        "point_group": 0
       },
       "beyond_quiz_vocabulary": false
     },
@@ -230,7 +230,7 @@
         "operation_hard": 6,
         "composition": 24,
         "mapping": 0,
-        "point_group": 1
+        "point_group": 0
       },
       "beyond_quiz_vocabulary": false
     },
@@ -248,7 +248,7 @@
         "operation_hard": 2,
         "composition": 0,
         "mapping": 0,
-        "point_group": 1
+        "point_group": 0
       },
       "beyond_quiz_vocabulary": false
     },
@@ -266,7 +266,7 @@
         "operation_hard": 6,
         "composition": 26,
         "mapping": 0,
-        "point_group": 1
+        "point_group": 0
       },
       "beyond_quiz_vocabulary": false
     },
@@ -302,7 +302,7 @@
         "operation_hard": 6,
         "composition": 14,
         "mapping": 0,
-        "point_group": 1
+        "point_group": 0
       },
       "beyond_quiz_vocabulary": false
     }

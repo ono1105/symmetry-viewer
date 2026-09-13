@@ -174,7 +174,7 @@ def convert_operation(
         det=det,
         trace=trace,
         angle_deg=angle,
-        symbol=operation_symbol(kind, order),
+        symbol=operation_symbol(kind, order, trace),
     )
 
 
@@ -386,7 +386,7 @@ def classify_molecular_operation(
     return "unknown"
 
 
-def operation_symbol(kind: str, order: int | None) -> str:
+def operation_symbol(kind: str, order: int | None, trace: float | None = None) -> str:
     if kind == "identity":
         return "E"
     if kind == "inversion":
@@ -396,8 +396,31 @@ def operation_symbol(kind: str, order: int | None) -> str:
     if kind.startswith("rotation_"):
         return f"C{order}" if order is not None else "C∞"
     if kind.startswith("improper_"):
-        return f"S{order}" if order is not None else "S∞"
+        if order is None:
+            return "S∞"
+        named = improper_symbol_from_trace(trace) if trace is not None else None
+        return named if named is not None else f"S{order}"
     return kind
+
+
+def improper_symbol_from_trace(trace: float, max_index: int = 24) -> str | None:
+    """Name a rotoreflection by its own rotation angle: S3, S6, S10^3, ...
+
+    ``order`` (and the ``improper_<order>`` kind) is the matrix period, which is
+    6 for S3, so the symbol used to read "S6" for both kinds on benzene's
+    principal axis. The angle tells them apart: trace = 2cos(theta) - 1 for a
+    rotoreflection. theta = 360 k/n in lowest terms is S_n^k.
+    """
+    cos_theta = float(np.clip((trace + 1.0) / 2.0, -1.0, 1.0))
+    theta = float(np.degrees(np.arccos(cos_theta)))
+    if theta < 1e-6:
+        return None
+    for index in range(2, max_index + 1):
+        power = theta * index / 360.0
+        if round(power) >= 1 and abs(power - round(power)) < 1e-3:
+            power = int(round(power))
+            return f"S{index}" if power == 1 else f"S{index}^{power}"
+    return None
 
 
 def canonical_reflection_matrix(matrix: np.ndarray) -> np.ndarray:

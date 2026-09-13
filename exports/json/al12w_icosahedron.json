@@ -673,11 +673,11 @@
       },
       {
         "index": 15,
-        "label": "15: S10 improper_10",
+        "label": "15: S10^3 improper_10",
         "kind": "improper_10",
         "order": 10,
         "angle_deg": null,
-        "symbol": "S10",
+        "symbol": "S10^3",
         "matrix_frac": null,
         "translation_frac": null,
         "matrix_cart": [
@@ -801,11 +801,11 @@
       },
       {
         "index": 19,
-        "label": "19: S10 improper_10",
+        "label": "19: S10^3 improper_10",
         "kind": "improper_10",
         "order": 10,
         "angle_deg": null,
-        "symbol": "S10",
+        "symbol": "S10^3",
         "matrix_frac": null,
         "translation_frac": null,
         "matrix_cart": [
@@ -1025,11 +1025,11 @@
       },
       {
         "index": 26,
-        "label": "26: S10 improper_10",
+        "label": "26: S10^3 improper_10",
         "kind": "improper_10",
         "order": 10,
         "angle_deg": null,
-        "symbol": "S10",
+        "symbol": "S10^3",
         "matrix_frac": null,
         "translation_frac": null,
         "matrix_cart": [
@@ -1601,11 +1601,11 @@
       },
       {
         "index": 44,
-        "label": "44: S10 improper_10",
+        "label": "44: S10^3 improper_10",
         "kind": "improper_10",
         "order": 10,
         "angle_deg": null,
-        "symbol": "S10",
+        "symbol": "S10^3",
         "matrix_frac": null,
         "translation_frac": null,
         "matrix_cart": [
@@ -1729,11 +1729,11 @@
       },
       {
         "index": 48,
-        "label": "48: S10 improper_10",
+        "label": "48: S10^3 improper_10",
         "kind": "improper_10",
         "order": 10,
         "angle_deg": null,
-        "symbol": "S10",
+        "symbol": "S10^3",
         "matrix_frac": null,
         "translation_frac": null,
         "matrix_cart": [
@@ -2049,11 +2049,11 @@
       },
       {
         "index": 58,
-        "label": "58: S10 improper_10",
+        "label": "58: S10^3 improper_10",
         "kind": "improper_10",
         "order": 10,
         "angle_deg": null,
-        "symbol": "S10",
+        "symbol": "S10^3",
         "matrix_frac": null,
         "translation_frac": null,
         "matrix_cart": [
@@ -2241,11 +2241,11 @@
       },
       {
         "index": 64,
-        "label": "64: S10 improper_10",
+        "label": "64: S10^3 improper_10",
         "kind": "improper_10",
         "order": 10,
         "angle_deg": null,
-        "symbol": "S10",
+        "symbol": "S10^3",
         "matrix_frac": null,
         "translation_frac": null,
         "matrix_cart": [
@@ -3105,11 +3105,11 @@
       },
       {
         "index": 91,
-        "label": "91: S10 improper_10",
+        "label": "91: S10^3 improper_10",
         "kind": "improper_10",
         "order": 10,
         "angle_deg": null,
-        "symbol": "S10",
+        "symbol": "S10^3",
         "matrix_frac": null,
         "translation_frac": null,
         "matrix_cart": [
@@ -3361,11 +3361,11 @@
       },
       {
         "index": 99,
-        "label": "99: S10 improper_10",
+        "label": "99: S10^3 improper_10",
         "kind": "improper_10",
         "order": 10,
         "angle_deg": null,
-        "symbol": "S10",
+        "symbol": "S10^3",
         "matrix_frac": null,
         "translation_frac": null,
         "matrix_cart": [
@@ -3457,11 +3457,11 @@
       },
       {
         "index": 102,
-        "label": "102: S10 improper_10",
+        "label": "102: S10^3 improper_10",
         "kind": "improper_10",
         "order": 10,
         "angle_deg": null,
-        "symbol": "S10",
+        "symbol": "S10^3",
         "matrix_frac": null,
         "translation_frac": null,
         "matrix_cart": [
@@ -3489,11 +3489,11 @@
       },
       {
         "index": 103,
-        "label": "103: S10 improper_10",
+        "label": "103: S10^3 improper_10",
         "kind": "improper_10",
         "order": 10,
         "angle_deg": null,
-        "symbol": "S10",
+        "symbol": "S10^3",
         "matrix_frac": null,
         "translation_frac": null,
         "matrix_cart": [
@@ -3585,11 +3585,11 @@
       },
       {
         "index": 106,
-        "label": "106: S10 improper_10",
+        "label": "106: S10^3 improper_10",
         "kind": "improper_10",
         "order": 10,
         "angle_deg": null,
-        "symbol": "S10",
+        "symbol": "S10^3",
         "matrix_frac": null,
         "translation_frac": null,
         "matrix_cart": [
@@ -4185,7 +4185,7 @@
           -0.8506509243094621,
           0.0
         ],
-        "label": "S10x4",
+        "label": "S10x2, S10^3x2",
         "operation_indices": [
           15,
           42,
@@ -4238,7 +4238,7 @@
           0.5257311837847727,
           0.8506507640602351
         ],
-        "label": "S10x4",
+        "label": "S10x2, S10^3x2",
         "operation_indices": [
           19,
           23,
@@ -4293,7 +4293,7 @@
           0.8506507640602351,
           0.0
         ],
-        "label": "S10x4",
+        "label": "S10x2, S10^3x2",
         "operation_indices": [
           26,
           34,
@@ -4468,7 +4468,7 @@
           1.1072951671368563e-07,
           0.5257312143896424
         ],
-        "label": "S10x4",
+        "label": "S10x2, S10^3x2",
         "operation_indices": [
           48,
           58,
@@ -4649,7 +4649,7 @@
           0.5257311022151744,
           -0.8506508144730098
         ],
-        "label": "S10x4",
+        "label": "S10x2, S10^3x2",
         "operation_indices": [
           74,
           102,
@@ -4751,7 +4751,7 @@
           -1.5179026678333514e-07,
           -0.5257311022151746
         ],
-        "label": "S10x4",
+        "label": "S10x2, S10^3x2",
         "operation_indices": [
           82,
           99,

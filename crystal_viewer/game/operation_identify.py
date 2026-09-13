@@ -242,8 +242,47 @@ def _glide_shift(render_data: dict, operation: dict) -> str | None:
     return _format_fraction(float(sum(ratios) / len(ratios)))
 
 
+def _translation_is_lattice(render_data: dict, operation: dict) -> bool:
+    """True for a screw/glide whose own translation is a lattice translation.
+
+    Up to that translation it is a plain rotation or mirror: in an F lattice the
+    "n glide" x,y,0 with (1/2,1/2,0) is the mirror z=0 plus a centring vector.
+    Asking for its glide component would teach a glide that is not there.
+    """
+    kind = str(operation.get("kind", ""))
+    if not (kind.startswith("screw") or kind == "glide"):
+        return False
+    matrix = operation.get("matrix_frac")
+    translation = operation.get("translation_frac")
+    if matrix is None or translation is None:
+        return False
+    w = np.asarray(matrix, dtype=float)
+    t = np.asarray(translation, dtype=float)
+    power = np.eye(3)
+    total = np.zeros(3)
+    for fold in range(1, 13):
+        total = w @ total + t
+        power = w @ power
+        if np.allclose(power, np.eye(3), atol=1e-6):
+            break
+    else:
+        return False
+    intrinsic = total / fold
+    centrings = [np.zeros(3)] + [
+        np.asarray(other["translation_frac"], dtype=float)
+        for other in render_data.get("operations", [])
+        if is_pure_translation_operation(other) and other.get("translation_frac") is not None
+    ]
+    return any(
+        np.allclose(intrinsic - centring, np.round(intrinsic - centring), atol=1e-4)
+        for centring in centrings
+    )
+
+
 def _translation_answer(render_data: dict, operation: dict) -> dict | None:
     """The hard-mode answer (a screw axis or glide plane), or None."""
+    if _translation_is_lattice(render_data, operation):
+        return None
     kind = str(operation.get("kind", ""))
     if kind.startswith("screw"):
         order = operation.get("order")
@@ -324,6 +363,7 @@ def unnameable_operations(render_data: dict) -> list[dict]:
         for operation in render_data.get("operations", [])
         if str(operation.get("kind", "")) not in ("identity", "rotation_infinite")
         and not is_pure_translation_operation(operation)
+        and not _translation_is_lattice(render_data, operation)
         # ALL, not NORMAL: screws and glides are only answerable in hard mode,
         # and judging them unnameable would flag every crystal.
         and _answer_for(render_data, operation, ALL) is None

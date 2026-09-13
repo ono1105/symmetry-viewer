@@ -683,8 +683,15 @@ def infer_compact_screw_symbol(operation: RenderOperationData) -> str | None:
         return None
     axis = axis / norm
     translation = np.asarray(operation.translation_frac, dtype=float)
-    fraction = abs(float(np.dot(translation, axis)))
-    fraction -= np.floor(fraction)
+    along = float(np.dot(translation, axis))
+    if along < 0:
+        axis = -axis
+        along = -along
+    fraction = along - np.floor(along)
+    # n_m names the counterclockwise turn about the direction of travel.
+    probe = np.eye(3)[int(np.argmin(np.abs(axis)))]
+    if np.linalg.det(np.column_stack([axis, probe, np.asarray(matrix, dtype=float) @ probe])) < -1e-8:
+        fraction = (1.0 - fraction) % 1.0
     screw = int(np.floor(fraction * operation.order + 0.5 + 1e-8))
     if screw == 0 and not np.isclose(fraction, 0.0, atol=1e-6):
         screw = 1

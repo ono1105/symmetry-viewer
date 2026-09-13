@@ -228,11 +228,30 @@ def infer_screw_symbol(render_data: dict, operation: dict, axis: dict) -> str | 
     primitive_frac = integer_index_vector(frac_direction)
     if primitive_frac is None:
         return None
-    period = float(np.linalg.norm(primitive_frac @ lattice))
+    # The screw period is the shortest lattice translation along the axis, centring
+    # vectors included: in bcc that is (1/2,1/2,1/2) along [111], not (1,1,1).
+    shortest = np.asarray(primitive_frac, dtype=float)
+    centrings = [
+        np.asarray(other["translation_frac"], dtype=float)
+        for other in render_data.get("operations", [])
+        if is_pure_translation_operation(other) and other.get("translation_frac") is not None
+    ]
+    for divisor in range(6, 1, -1):
+        candidate = shortest / divisor
+        if any(np.allclose(candidate - c, np.round(candidate - c), atol=1e-6) for c in centrings):
+            shortest = candidate
+            break
+    period = float(np.linalg.norm(shortest @ lattice))
     if period < 1e-10:
         return None
 
     fraction = (projected / period) % 1.0
+    # n_m names the counterclockwise turn; a clockwise operation on the same axis
+    # advances n-m steps (3- with +2/3 lies on a 3_1 axis).
+    from crystal_viewer.geometry import rotation_axis_sin_component
+
+    if rotation_axis_sin_component(np.asarray(matrix, dtype=float), direction) < -1e-8:
+        fraction = (1.0 - fraction) % 1.0
     order_int = int(order)
     if order_int == 2 and not np.isclose(fraction, 0.0, atol=1e-6):
         screw = 1

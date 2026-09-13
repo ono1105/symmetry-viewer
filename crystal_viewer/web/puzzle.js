@@ -588,7 +588,7 @@ function beginAxisRound() {
     view.sceneSpan(),
   );
   view.render();
-  el("puzzle-question").textContent = "青い軸は何回回転軸ですか？";
+  el("puzzle-question").textContent = "青い軸は何回回転軸ですか？（回転だけを数え、回映やらせんは数えません）";
   const options = el("puzzle-options");
   const choices = [...currentQuestion.options];
   if (currentQuestion.infinite) choices.push(INFINITE);
@@ -1312,6 +1312,10 @@ async function onCheckOperation() {
     box.innerHTML = result.answers.length > 1 ? `正解（${answerText} のいずれも正解）` : `正解（${answerText}）`;
   } else {
     box.innerHTML = `不正解（正解は ${answerText}）`;
+  }
+  if (result.answers.length > 1) {
+    // Merged because the atoms move alike, not because the operations are equal.
+    box.innerHTML += `<br>原子の動きは同じに見えますが、${answerText} は別々の対称操作です。`;
   }
   el("puzzle-again").hidden = false;
   el("puzzle-trajectories").hidden = false;
