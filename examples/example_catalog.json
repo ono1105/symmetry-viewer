@@ -10,8 +10,8 @@
       "point_group": "4/mmm",
       "puzzle_counts": {
         "axis": 3,
-        "operation_normal": 15,
-        "operation_hard": 15,
+        "operation_normal": 14,
+        "operation_hard": 16,
         "composition": 28,
         "mapping": 0,
         "point_group": 0
@@ -46,8 +46,8 @@
       "point_group": "m-3m",
       "puzzle_counts": {
         "axis": 3,
-        "operation_normal": 137,
-        "operation_hard": 48,
+        "operation_normal": 119,
+        "operation_hard": 60,
         "composition": 56,
         "mapping": 0,
         "point_group": 1
@@ -82,8 +82,8 @@
       "point_group": "m-3m",
       "puzzle_counts": {
         "axis": 3,
-        "operation_normal": 122,
-        "operation_hard": 66,
+        "operation_normal": 101,
+        "operation_hard": 78,
         "composition": 48,
         "mapping": 0,
         "point_group": 0
@@ -100,8 +100,8 @@
       "point_group": "m-3m",
       "puzzle_counts": {
         "axis": 3,
-        "operation_normal": 137,
-        "operation_hard": 48,
+        "operation_normal": 119,
+        "operation_hard": 60,
         "composition": 56,
         "mapping": 0,
         "point_group": 1
@@ -136,8 +136,8 @@
       "point_group": "m-3m",
       "puzzle_counts": {
         "axis": 3,
-        "operation_normal": 137,
-        "operation_hard": 48,
+        "operation_normal": 119,
+        "operation_hard": 60,
         "composition": 56,
         "mapping": 0,
         "point_group": 1
@@ -172,8 +172,8 @@
       "point_group": "m-3m",
       "puzzle_counts": {
         "axis": 3,
-        "operation_normal": 137,
-        "operation_hard": 48,
+        "operation_normal": 119,
+        "operation_hard": 60,
         "composition": 56,
         "mapping": 0,
         "point_group": 1
@@ -226,8 +226,8 @@
       "point_group": "m-3",
       "puzzle_counts": {
         "axis": 1,
-        "operation_normal": 17,
-        "operation_hard": 6,
+        "operation_normal": 14,
+        "operation_hard": 9,
         "composition": 24,
         "mapping": 0,
         "point_group": 0
@@ -280,8 +280,8 @@
       "point_group": "-43m",
       "puzzle_counts": {
         "axis": 2,
-        "operation_normal": 74,
-        "operation_hard": 18,
+        "operation_normal": 59,
+        "operation_hard": 30,
         "composition": 32,
         "mapping": 0,
         "point_group": 1

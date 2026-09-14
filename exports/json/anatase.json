@@ -637,11 +637,11 @@
       },
       {
         "index": 7,
-        "label": "7: 2 rotation_2",
-        "kind": "rotation_2",
+        "label": "7: 2_? screw_2",
+        "kind": "screw_2",
         "order": 2,
         "angle_deg": 180.0,
-        "symbol": "2",
+        "symbol": "2_?",
         "matrix_frac": [
           [
             0.0,
@@ -2212,7 +2212,7 @@
           0.7071067811865476,
           8.659560562354933e-17
         ],
-        "label": "2",
+        "label": "2_?",
         "operation_indices": [
           7
         ]
@@ -2228,7 +2228,7 @@
           0.7071067811865476,
           8.659560562354933e-17
         ],
-        "label": "2",
+        "label": "2_?",
         "operation_indices": [
           7
         ]
@@ -2244,7 +2244,7 @@
           0.7071067811865476,
           8.659560562354933e-17
         ],
-        "label": "2",
+        "label": "2_?",
         "operation_indices": [
           7
         ]
@@ -2260,7 +2260,7 @@
           0.7071067811865476,
           8.659560562354933e-17
         ],
-        "label": "2",
+        "label": "2_?",
         "operation_indices": [
           7
         ]
@@ -5680,7 +5680,7 @@
       {
         "mode": "crystal",
         "operation_index": 7,
-        "operation_kind": "rotation_2",
+        "operation_kind": "screw_2",
         "complete": true,
         "atom_to_atom": [
           2,

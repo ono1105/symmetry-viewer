@@ -3310,11 +3310,11 @@
       },
       {
         "index": 62,
-        "label": "62: 2 rotation_2",
-        "kind": "rotation_2",
+        "label": "62: 2_? screw_2",
+        "kind": "screw_2",
         "order": 2,
         "angle_deg": 180.0,
-        "symbol": "2",
+        "symbol": "2_?",
         "matrix_frac": [
           [
             0.0,
@@ -3518,11 +3518,11 @@
       },
       {
         "index": 66,
-        "label": "66: 2 rotation_2",
-        "kind": "rotation_2",
+        "label": "66: 2_? screw_2",
+        "kind": "screw_2",
         "order": 2,
         "angle_deg": 180.0,
-        "symbol": "2",
+        "symbol": "2_?",
         "matrix_frac": [
           [
             0.0,
@@ -4558,11 +4558,11 @@
       },
       {
         "index": 86,
-        "label": "86: 2 rotation_2",
-        "kind": "rotation_2",
+        "label": "86: 2_? screw_2",
+        "kind": "screw_2",
         "order": 2,
         "angle_deg": 180.0,
-        "symbol": "2",
+        "symbol": "2_?",
         "matrix_frac": [
           [
             -1.0,
@@ -6173,7 +6173,7 @@
           0.7071067811865476,
           8.659560562354932e-17
         ],
-        "label": "2",
+        "label": "2_?",
         "operation_indices": [
           62
         ]
@@ -6189,7 +6189,7 @@
           0.7071067811865476,
           8.659560562354932e-17
         ],
-        "label": "2",
+        "label": "2_?",
         "operation_indices": [
           62
         ]
@@ -6205,7 +6205,7 @@
           0.7071067811865476,
           8.659560562354932e-17
         ],
-        "label": "2",
+        "label": "2_?",
         "operation_indices": [
           62
         ]
@@ -6221,7 +6221,7 @@
           0.7071067811865476,
           8.659560562354932e-17
         ],
-        "label": "2",
+        "label": "2_?",
         "operation_indices": [
           62
         ]
@@ -6237,7 +6237,7 @@
           0.0,
           0.7071067811865477
         ],
-        "label": "2",
+        "label": "2_?",
         "operation_indices": [
           66
         ]
@@ -6253,7 +6253,7 @@
           0.0,
           0.7071067811865477
         ],
-        "label": "2",
+        "label": "2_?",
         "operation_indices": [
           66
         ]
@@ -6269,7 +6269,7 @@
           0.0,
           0.7071067811865477
         ],
-        "label": "2",
+        "label": "2_?",
         "operation_indices": [
           66
         ]
@@ -6285,7 +6285,7 @@
           0.0,
           0.7071067811865477
         ],
-        "label": "2",
+        "label": "2_?",
         "operation_indices": [
           66
         ]
@@ -6365,7 +6365,7 @@
           0.7071067811865474,
           0.7071067811865477
         ],
-        "label": "2",
+        "label": "2_?",
         "operation_indices": [
           86
         ]
@@ -6381,7 +6381,7 @@
           0.7071067811865474,
           0.7071067811865477
         ],
-        "label": "2",
+        "label": "2_?",
         "operation_indices": [
           86
         ]
@@ -6397,7 +6397,7 @@
           0.7071067811865474,
           0.7071067811865477
         ],
-        "label": "2",
+        "label": "2_?",
         "operation_indices": [
           86
         ]
@@ -6413,7 +6413,7 @@
           0.7071067811865474,
           0.7071067811865477
         ],
-        "label": "2",
+        "label": "2_?",
         "operation_indices": [
           86
         ]
@@ -11597,7 +11597,7 @@
       {
         "mode": "crystal",
         "operation_index": 62,
-        "operation_kind": "rotation_2",
+        "operation_kind": "screw_2",
         "complete": true,
         "atom_to_atom": [
           1,
@@ -11853,7 +11853,7 @@
       {
         "mode": "crystal",
         "operation_index": 66,
-        "operation_kind": "rotation_2",
+        "operation_kind": "screw_2",
         "complete": true,
         "atom_to_atom": [
           1,
@@ -13133,7 +13133,7 @@
       {
         "mode": "crystal",
         "operation_index": 86,
-        "operation_kind": "rotation_2",
+        "operation_kind": "screw_2",
         "complete": true,
         "atom_to_atom": [
           1,

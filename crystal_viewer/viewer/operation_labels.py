@@ -197,74 +197,18 @@ def display_operation_symbol(render_data: dict, operation: dict, axes: list[dict
     symbol = operation.get("symbol") or operation["label"]
     if is_pure_translation_operation(operation):
         return "t"
-    if str(operation["kind"]).find("glide") >= 0 and str(symbol) == "g" and planes:
-        inferred = infer_standard_glide_symbol_for_planes(render_data, operation, planes)
-        if inferred is not None:
-            return inferred
-    if "?" not in str(symbol):
-        return str(symbol)
-    if not str(operation["kind"]).startswith("screw") or not axes:
-        return str(symbol)
-    inferred = infer_screw_symbol(render_data, operation, axes[0])
-    return inferred or str(symbol)
-
-
-def infer_screw_symbol(render_data: dict, operation: dict, axis: dict) -> str | None:
-    order = operation.get("order")
-    matrix = operation.get("matrix_cart")
-    translation = operation.get("translation_cart")
-    unit_cell = render_data.get("unit_cell")
-    if order is None or matrix is None or translation is None or unit_cell is None:
-        return None
-
-    point = np.asarray(axis["point_cart"], dtype=float)
-    direction = normalize(np.asarray(axis["direction_cart"], dtype=float))
-    moved = np.asarray(matrix, dtype=float) @ point + np.asarray(translation, dtype=float)
-    displacement = moved - point
-    projected = float(np.dot(displacement, direction))
-
-    lattice = np.asarray(unit_cell["lattice"], dtype=float)
-    frac_direction = direction @ lattice_inverse(unit_cell)
-    primitive_frac = integer_index_vector(frac_direction)
-    if primitive_frac is None:
-        return None
-    # The screw period is the shortest lattice translation along the axis, centring
-    # vectors included: in bcc that is (1/2,1/2,1/2) along [111], not (1,1,1).
-    shortest = np.asarray(primitive_frac, dtype=float)
-    centrings = [
-        np.asarray(other["translation_frac"], dtype=float)
-        for other in render_data.get("operations", [])
-        if is_pure_translation_operation(other) and other.get("translation_frac") is not None
-    ]
-    for divisor in range(6, 1, -1):
-        candidate = shortest / divisor
-        if any(np.allclose(candidate - c, np.round(candidate - c), atol=1e-6) for c in centrings):
-            shortest = candidate
-            break
-    period = float(np.linalg.norm(shortest @ lattice))
-    if period < 1e-10:
-        return None
-
-    fraction = (projected / period) % 1.0
-    # n_m names the counterclockwise turn; a clockwise operation on the same axis
-    # advances n-m steps (3- with +2/3 lies on a 3_1 axis).
-    from crystal_viewer.geometry import rotation_axis_sin_component
-
-    if rotation_axis_sin_component(np.asarray(matrix, dtype=float), direction) < -1e-8:
-        fraction = (1.0 - fraction) % 1.0
-    order_int = int(order)
-    if order_int == 2 and not np.isclose(fraction, 0.0, atol=1e-6):
-        screw = 1
-    else:
-        raw_screw = fraction * order_int
-        screw = int(np.floor(raw_screw + 0.5 + 1e-8))
-        if screw == 0 and not np.isclose(fraction, 0.0, atol=1e-6):
-            screw = 1
-        elif screw >= order_int:
-            screw = order_int - 1
-    if screw == 0:
-        return None
-    return f"{order_int}_{screw}"
+    if str(operation["kind"]).find("glide") >= 0 and str(symbol) == "g":
+        # The letter of the operation itself, as in the ITC-like notation.
+        matrix = operation.get("matrix_frac")
+        translation = operation.get("translation_frac")
+        if matrix is not None and translation is not None:
+            W = np.asarray(matrix, dtype=float)
+            return _itc_glide_letter(W, _itc_t_intrinsic(W, np.asarray(translation, dtype=float), 2))
+    if str(operation["kind"]).startswith("screw"):
+        # The name of the operation itself, as in the ITC-like notation: a screw
+        # advancing one whole lattice period (bcc's 3+(1/2,1/2,1/2)) is a plain 3.
+        return itc_operation_symbol(render_data, operation, str(symbol)).rstrip("+-")
+    return str(symbol)
 
 
 def plane_hkl_vector(render_data: dict, plane: dict) -> np.ndarray | None:
@@ -274,59 +218,6 @@ def plane_hkl_vector(render_data: dict, plane: dict) -> np.ndarray | None:
     lattice = np.asarray(unit_cell["lattice"], dtype=float)
     normal = np.asarray(plane["normal_cart"], dtype=float)
     return lattice @ normal
-
-
-def classify_standard_glide_vector(glide_frac: np.ndarray) -> str | None:
-    magnitudes = np.abs(centered_fractional_vector(glide_frac))
-    half_axes = [index for index, value in enumerate(magnitudes) if abs(float(value) - 0.5) < 1e-5]
-    quarter_axes = [
-        index
-        for index, value in enumerate(magnitudes)
-        if min(abs(float(value) - 0.25), abs(float(value) - 0.75)) < 1e-5
-    ]
-    other_axes = [
-        index
-        for index, value in enumerate(magnitudes)
-        if value > 1e-5 and index not in half_axes and index not in quarter_axes
-    ]
-    if other_axes:
-        return None
-    if len(quarter_axes) >= 2 and not half_axes:
-        return "d"
-    if len(half_axes) >= 2 and not quarter_axes:
-        return "n"
-    if len(half_axes) == 1 and not quarter_axes:
-        return ("a", "b", "c")[half_axes[0]]
-    return None
-
-
-def infer_standard_glide_symbol_for_planes(render_data: dict, operation: dict, planes: list[dict]) -> str | None:
-    candidates = []
-    for plane in planes:
-        glide_frac = glide_translation_frac(render_data, operation, plane)
-        if glide_frac is None:
-            continue
-        symbol = classify_standard_glide_vector(glide_frac)
-        if symbol is None:
-            continue
-        centered = centered_fractional_vector(glide_frac)
-        candidates.append((glide_vector_cart_norm(render_data, centered), symbol))
-    if not candidates:
-        return None
-    candidates.sort(key=lambda item: item[0])
-    best_norm = candidates[0][0]
-    symbols = {symbol for norm, symbol in candidates if abs(norm - best_norm) < 1e-5}
-    if len(symbols) != 1:
-        return None
-    return next(iter(symbols))
-
-
-def glide_vector_cart_norm(render_data: dict, glide_frac: np.ndarray) -> float:
-    unit_cell = render_data.get("unit_cell")
-    if unit_cell is None:
-        return float(np.linalg.norm(glide_frac))
-    lattice = np.asarray(unit_cell["lattice"], dtype=float)
-    return float(np.linalg.norm(np.asarray(glide_frac, dtype=float) @ lattice))
 
 
 def glide_intrinsic_translation_frac(operation: dict) -> np.ndarray | None:
@@ -342,6 +233,128 @@ def glide_intrinsic_translation_frac(operation: dict) -> np.ndarray | None:
     W = np.asarray(W_frac, dtype=float)
     t = np.asarray(t_frac, dtype=float)
     return (np.eye(3) + W) @ t / 2
+
+
+# Axis directions with the sign ITC Vol. A writes them in: the body diagonals keep
+# a positive product of components, the face diagonals follow the cyclic order
+# x -> y -> z ([1-10], [01-1], [-101]).  Other directions put the first
+# non-zero component positive.
+_ITC_DIRECTIONS = tuple(
+    np.array(direction, dtype=float)
+    for direction in (
+        (1, 0, 0), (0, 1, 0), (0, 0, 1),
+        (1, 1, 0), (1, -1, 0), (0, 1, 1), (0, 1, -1), (1, 0, 1), (-1, 0, 1),
+        (1, 2, 0), (2, 1, 0),
+        (1, 1, 1), (-1, 1, -1), (1, -1, -1), (-1, -1, 1),
+    )
+)
+
+
+def _itc_direction(vector: np.ndarray) -> np.ndarray | None:
+    ints = integer_index_vector(np.asarray(vector, dtype=float))
+    if ints is None:
+        return None
+    ints = np.asarray(ints, dtype=float)
+    for direction in _ITC_DIRECTIONS:
+        if np.allclose(ints, direction) or np.allclose(ints, -direction):
+            return direction.copy()
+    first = ints[np.flatnonzero(np.abs(ints) > 1e-8)[0]]
+    return ints if first > 0 else -ints
+
+
+def _itc_parameter_name(direction: np.ndarray) -> str:
+    return "xyz"[int(np.flatnonzero(np.abs(direction) > 1e-8)[0])]
+
+
+def _itc_line(point: np.ndarray, direction: np.ndarray) -> str:
+    """Spell the line point + s*direction as ITC does: the constant is zero in z,
+    otherwise in x, otherwise in y ('x, -x+1/2, 1/4', '-x+1/3, x+1/3, -x')."""
+    k = next(index for index in (2, 0, 1) if abs(direction[index]) > 1e-8)
+    const = point - (point[k] / direction[k]) * direction
+    name = _itc_parameter_name(direction)
+    return ", ".join(_itc_coord_str(float(const[i]), [(float(direction[i]), name)]) for i in range(3))
+
+
+def _itc_sense(render_data: dict, matrix_cart: np.ndarray, direction_frac: np.ndarray) -> str:
+    lattice = np.asarray((render_data.get("unit_cell") or {}).get("lattice"), dtype=float)
+    if lattice.shape != (3, 3):
+        return ""
+    direction_cart = normalize(np.asarray(direction_frac, dtype=float) @ lattice)
+    angle = signed_rotation_angle_from_matrix(np.asarray(matrix_cart, dtype=float), direction_cart)
+    if abs(angle) < 1e-8 or abs(abs(angle) - np.pi) < 1e-8:
+        return ""
+    return "+" if angle > 0 else "-"
+
+
+def _itc_rotoinversion_notation(render_data: dict, operation: dict) -> str | None:
+    """ITC notation of a 3-, 4- or 6-fold rotoinversion: '-4+ 0, 0, z; 0, 0, 0'.
+
+    ITC gives the axis with the rotation sense of the rotation part -W, and the
+    inversion point on it.
+    """
+    W_frac = operation.get("matrix_frac")
+    t_frac = operation.get("translation_frac")
+    matrix_cart = operation.get("matrix_cart")
+    if W_frac is None or t_frac is None or matrix_cart is None:
+        return None
+    W = np.asarray(W_frac, dtype=float)
+    if round(float(np.linalg.det(W))) != -1:
+        return None
+    fold = {0: 3, 1: 4, 2: 6}.get(round(float(np.trace(-W))))
+    if fold is None:
+        return None
+    axes = _itc_null_space(-W - np.eye(3))
+    if len(axes) != 1:
+        return None
+    direction = _itc_direction(axes[0])
+    if direction is None:
+        return None
+    point = np.linalg.solve(W - np.eye(3), -np.asarray(t_frac, dtype=float))
+    sense = _itc_sense(render_data, -np.asarray(matrix_cart, dtype=float), direction)
+    point_text = ", ".join(_itc_coord_str(float(value), []) for value in point)
+    return f"-{fold}{sense} {_itc_line(point, direction)}; {point_text}"
+
+
+def _itc_reflection_notation(operation: dict) -> str | None:
+    """ITC symbol of a reflection or glide, e.g. 'c' or 'n(1/2,1/2,1/2)'.
+
+    The letter follows the operation's own glide vector, as ITC Vol. A does, not
+    the shortest glide among lattice-equivalent planes (display_operation_symbol
+    keeps that for the quiz). a, b, c and m print no vector; n, d and g do.
+    """
+    W_frac = operation.get("matrix_frac")
+    t_frac = operation.get("translation_frac")
+    if W_frac is None or t_frac is None:
+        return None
+    W = np.asarray(W_frac, dtype=float)
+    if round(float(np.linalg.det(W))) != -1 or round(float(np.trace(W))) != 1:
+        return None
+    glide = _itc_t_intrinsic(W, np.asarray(t_frac, dtype=float), 2)
+    letter = _itc_glide_letter(W, glide)
+    if letter in ("n", "d", "g"):
+        return f"{letter}{fractional_vector_label(glide)}"
+    return letter
+
+
+def _itc_glide_letter(W: np.ndarray, glide: np.ndarray) -> str:
+    """a/b/c: half a basis vector; n: half of two (axial plane) or three (diagonal
+    plane) basis vectors; d: the same with quarters; anything else is g."""
+    normals = _itc_null_space(np.asarray(W, dtype=float).T + np.eye(3))
+    axial = len(normals) == 1 and int(np.count_nonzero(np.abs(normals[0]) > 1e-8)) == 1
+    magnitudes = np.abs(np.asarray(glide, dtype=float))
+    nonzero = [index for index, value in enumerate(magnitudes) if value > 1e-6]
+    if not nonzero:
+        return "m"
+    halves = all(abs(magnitudes[index] - 0.5) < 1e-6 for index in nonzero)
+    quarters = all(min(abs(magnitudes[index] - 0.25), abs(magnitudes[index] - 0.75)) < 1e-6 for index in nonzero)
+    if halves and len(nonzero) == 1:
+        return "abc"[nonzero[0]]
+    if len(nonzero) == (2 if axial else 3):
+        if halves:
+            return "n"
+        if quarters:
+            return "d"
+    return "g"
 
 
 def _itc_t_intrinsic(W: np.ndarray, t: np.ndarray, order: int) -> np.ndarray:
@@ -385,21 +398,6 @@ def _itc_rationalize(v: np.ndarray) -> np.ndarray:
     return np.array([x / g for x in ints], dtype=float)
 
 
-def _itc_param_names(null_vecs: list[np.ndarray]) -> list[str]:
-    """Assign 'x', 'y', 'z' to null space vectors by dominant component."""
-    avail = ["x", "y", "z"]
-    used: set[str] = set()
-    names = []
-    for v in null_vecs:
-        order = list(np.argsort(-np.abs(v)))
-        name = next((avail[i] for i in order if avail[i] not in used), None)
-        if name is None:
-            name = next(n for n in avail if n not in used)
-        used.add(name)
-        names.append(name)
-    return names
-
-
 def _itc_coord_str(const: float, terms: list[tuple[float, str]]) -> str:
     """Format one coordinate: 'x+1/2', '-x', '1/4', '0', etc."""
     parts: list[str] = []
@@ -420,81 +418,57 @@ def _itc_coord_str(const: float, terms: list[tuple[float, str]]) -> str:
     c_frac = crystallographic_fraction(c_val) or Fraction(0)
     has_const = abs(float(c_frac)) > 1e-8
 
+    # str(Fraction), not format_fraction: that one wraps 1 to 0 for cell coordinates,
+    # while an element location keeps constants such as x+1 or -x+3/2.
     if not parts:
-        return format_fraction(float(c_frac)) if has_const else "0"
+        return str(c_frac) if has_const else "0"
 
     result = parts[0]
     for p in parts[1:]:
         result += p if p.startswith("-") else "+" + p
     if has_const:
-        c_str = format_fraction(float(c_frac))
-        result += "+" + c_str if float(c_frac) > 0 else c_str
+        result += f"+{c_frac}" if c_frac > 0 else str(c_frac)
     return result
 
 
-def _itc_normalize(
-    x0: np.ndarray, null_vecs: list[np.ndarray]
-) -> tuple[np.ndarray, list[np.ndarray]]:
-    """Normalize parametric position toward ITC canonical form.
+def _itc_plane_basis(null_vecs: list[np.ndarray]) -> list[np.ndarray]:
+    """Two in-plane directions from _ITC_DIRECTIONS with different parameter
+    names, shortest first ('x, x, z' uses [110] and [001], '-x, y, x' [-101] and [010])."""
+    span = np.vstack(null_vecs)
+    candidates = sorted(
+        (direction for direction in _ITC_DIRECTIONS if np.linalg.matrix_rank(np.vstack([span, direction]), tol=1e-6) == 2),
+        key=lambda direction: float(np.abs(direction).sum()),
+    )
+    for index, first in enumerate(candidates):
+        for second in candidates[index + 1:]:
+            if _itc_parameter_name(first) != _itc_parameter_name(second):
+                return sorted((first, second), key=_itc_parameter_name)
+    directions = [_itc_direction(vector) for vector in null_vecs]
+    return sorted((d for d in directions if d is not None), key=_itc_parameter_name)
 
-    Rules applied in order for each null vector:
-    1. Flip sign so the first non-zero component is positive.
-    2a. (negative coeff) Shift to zero the constant at the first coordinate
-        with a rounded negative integer coefficient ('-x' style).
-    2b. (all-positive coeff) Shift to zero the constant at the LAST non-zero
-        coordinate, placing any remainder on earlier coordinates.
-        Example: [1,1,0] → zeroes coord 1, leaves constant on coord 0.
-    3. Center each x0 component in (-1/2, 1/2] to match ITC convention.
 
-    Known limitations — see REVIEW_NOTES for details:
-    - Null vecs with multiple negative integer components (e.g. [2,-1,-1]):
-      only the first negative coordinate's constant is zeroed.
-    - Ambiguous tie-breaking when equally valid shifts exist.
-    """
-    x0 = x0.copy()
-    out_vecs = []
-    for v in null_vecs:
-        v = v.copy()
-        # Rule 1: flip sign so first non-zero component is positive
-        for comp in v:
-            if abs(comp) > 1e-8:
-                if comp < 0:
-                    v = -v
-                break
-        # Rule 2a: shift to zero constant at first coord with rounded coeff < 0
-        zeroed = False
-        for j in range(3):
-            r = round(float(v[j]))
-            if r < 0 and abs(float(v[j]) - r) < 1e-8:
-                c = -float(x0[j]) / float(v[j])
-                x0 = x0 + c * v
-                zeroed = True
-                break
-        # Rule 2b: for all-positive vecs, zero the last non-zero component
-        if not zeroed:
-            for j in range(2, -1, -1):
-                r = round(float(v[j]))
-                if abs(r) > 0 and abs(float(v[j]) - r) < 1e-8 and abs(float(x0[j])) > 1e-8:
-                    c = -float(x0[j]) / float(v[j])
-                    x0 = x0 + c * v
-                    break
-        out_vecs.append(v)
-    # Rule 3: center each x0 component in (-1/2, 1/2] (ITC convention)
-    for i in range(3):
-        xi = float(x0[i]) % 1.0
-        if xi > 0.5 + 1e-8:
-            xi -= 1.0
-        x0[i] = 0.0 if abs(xi) < 1e-8 else xi
-    return x0, out_vecs
+def _itc_plane(point: np.ndarray, basis: list[np.ndarray]) -> str:
+    """Spell the plane through point as ITC does: the constants are zero in y and z
+    when possible, otherwise in x and z, otherwise in x and y ('x+1/2, -x, z')."""
+    const = point
+    for i, j in ((1, 2), (0, 2), (0, 1)):
+        minor = np.array([[basis[0][i], basis[1][i]], [basis[0][j], basis[1][j]]])
+        if abs(float(np.linalg.det(minor))) > 1e-8:
+            shift = np.linalg.solve(minor, -np.array([point[i], point[j]]))
+            const = point + shift[0] * basis[0] + shift[1] * basis[1]
+            break
+    names = [_itc_parameter_name(direction) for direction in basis]
+    return ", ".join(
+        _itc_coord_str(float(const[i]), [(float(direction[i]), name) for direction, name in zip(basis, names)])
+        for i in range(3)
+    )
 
 
 def operation_itc_position(operation: dict) -> str | None:
-    """Parametric position of the symmetry element, e.g. 'x+1/4, -x+1/4, z'.
+    """Location of the symmetry element in ITC Vol. A spelling, e.g. 'x, -x+1/2, 1/4'.
 
-    Solves (W - I) x = -t_loc where t_loc = t - t_int.
-    Free variables in the null space become parameters (x, y, z) assigned
-    by dominant component.  Parameter normalization to canonical ITC form
-    is NOT applied here; this can be added as a post-processing step later.
+    Solves (W - I) x = -t_loc where t_loc = t - t_int, for the operation itself
+    (no lattice translation is added or removed, so 3/4, 0, z stays 3/4, 0, z).
     """
     W_frac = operation.get("matrix_frac")
     t_frac = operation.get("translation_frac")
@@ -516,15 +490,17 @@ def operation_itc_position(operation: dict) -> str | None:
 
     null_vecs = _itc_null_space(A)
     x0, *_ = np.linalg.lstsq(A, b, rcond=None)
-    x0, null_vecs = _itc_normalize(x0, null_vecs)
-
-    param_names = _itc_param_names(null_vecs)
-
-    coords = []
-    for i in range(3):
-        terms = [(float(v[i]), p) for v, p in zip(null_vecs, param_names)]
-        coords.append(_itc_coord_str(float(x0[i]), terms))
-    return ", ".join(coords)
+    if len(null_vecs) == 1:
+        direction = _itc_direction(null_vecs[0])
+        if direction is not None:
+            return _itc_line(x0, direction)
+    elif len(null_vecs) == 2:
+        basis = _itc_plane_basis(null_vecs)
+        if len(basis) == 2:
+            return _itc_plane(x0, basis)
+    elif not null_vecs:
+        return ", ".join(_itc_coord_str(float(value), []) for value in x0)
+    return None
 
 
 def operation_element_summary(
@@ -592,8 +568,15 @@ def operation_itc_like_summary(
         if t_label is not None:
             return t_label
 
+    rotoinversion = _itc_rotoinversion_notation(render_data, operation)
+    if rotoinversion is not None:
+        return rotoinversion
+
     # All other operations: symbol(t_int) position_expression
     position = operation_itc_position(operation)
+    reflection = _itc_reflection_notation(operation)
+    if position is not None and reflection is not None:
+        return f"{reflection} {position}"
     if position is not None:
         symbol = itc_operation_symbol(
             render_data,
@@ -632,32 +615,55 @@ def itc_operation_symbol(render_data: dict, operation: dict, symbol: str) -> str
     rather than depending on whichever equivalent axis element was selected.
     """
     kind = str(operation.get("kind", ""))
-    if operation_notation_order(operation) not in (3, 4, 6) or not kind.startswith(("rotation_", "screw_")):
-        return symbol
-    if symbol.endswith(("+", "-")):
+    order = operation.get("order")
+    if order not in (2, 3, 4, 6) or not kind.startswith(("rotation_", "screw_")):
         return symbol
 
-    unit_cell = render_data.get("unit_cell") or {}
-    lattice = np.asarray(unit_cell.get("lattice"), dtype=float)
     matrix_frac = operation.get("matrix_frac")
+    translation_frac = operation.get("translation_frac")
     matrix_cart = operation.get("matrix_cart")
-    if lattice.shape != (3, 3) or matrix_frac is None or matrix_cart is None:
+    if matrix_frac is None or translation_frac is None or matrix_cart is None:
         return symbol
-
-    null_vecs = _itc_null_space(np.asarray(matrix_frac, dtype=float) - np.eye(3))
+    W = np.asarray(matrix_frac, dtype=float)
+    null_vecs = _itc_null_space(W - np.eye(3))
     if len(null_vecs) != 1:
         return symbol
-    direction_frac = integer_index_vector(null_vecs[0])
+    # The sense is measured about the axis direction written in the position
+    # (ITC's 3+ -x, x, -x turns about [-11-1], not [1-11]).
+    direction_frac = _itc_direction(null_vecs[0])
     if direction_frac is None:
         return symbol
-    direction_cart = normalize(direction_frac @ lattice)
-    if np.linalg.norm(direction_cart) < 1e-8:
-        return symbol
+    sense = _itc_sense(render_data, np.asarray(matrix_cart, dtype=float), direction_frac) if order != 2 else ""
+    t_int = _itc_t_intrinsic(W, np.asarray(translation_frac, dtype=float), int(order))
+    return f"{_itc_rotation_name(render_data, int(order), t_int, direction_frac, sense)}{sense}"
 
-    angle = signed_rotation_angle_from_matrix(np.asarray(matrix_cart, dtype=float), direction_cart)
-    if abs(angle) < 1e-8:
-        return symbol
-    return f"{symbol}{'+' if angle > 0 else '-'}"
+
+def _itc_rotation_name(render_data: dict, order: int, t_int: np.ndarray, direction: np.ndarray, sense: str) -> str:
+    """'4' or '4_1' for the operation itself, not for its lattice-equivalent class.
+
+    The subscript counts how many 1/n periods the operation's own intrinsic
+    translation advances along the axis; the period is the shortest lattice vector
+    along it, centring vectors included, so bcc's 3+(1/2,1/2,1/2) is a plain 3.
+    A clockwise turn advancing m/n lies on an n_(n-m) axis.
+    """
+    if np.allclose(t_int, 0.0, atol=1e-6):
+        return str(order)
+    centrings = [np.zeros(3)] + [
+        np.asarray(other["translation_frac"], dtype=float)
+        for other in render_data.get("operations", [])
+        if is_pure_translation_operation(other) and other.get("translation_frac") is not None
+    ]
+    period = np.asarray(direction, dtype=float)
+    for divisor in range(12, 1, -1):
+        candidate = period / divisor
+        if any(np.allclose((candidate - c + 0.5) % 1.0 - 0.5, 0.0, atol=1e-6) for c in centrings):
+            period = candidate
+            break
+    fraction = (float(t_int @ period) / float(period @ period)) % 1.0
+    if sense == "-":
+        fraction = (1.0 - fraction) % 1.0
+    steps = int(round(fraction * order)) % order
+    return f"{order}_{steps}" if steps else str(order)
 
 
 def operation_element_sort_key(

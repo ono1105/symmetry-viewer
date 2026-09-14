@@ -6,7 +6,9 @@ from pathlib import Path
 
 import _bootstrap  # noqa: F401
 
-from pymatgen.symmetry.groups import SpaceGroup
+import numpy as np
+import spglib
+from pymatgen.core.operations import SymmOp
 
 
 def main() -> int:
@@ -19,28 +21,53 @@ def main() -> int:
     parser.add_argument("--indent", type=int, default=None)
     args = parser.parse_args()
 
+    # Every ITA setting spglib knows (530 Hall symbols: unique axes, cell and
+    # origin choices, hexagonal/rhombohedral axes), merged per space-group
+    # number. A coordinate triplet depends only on (W, t), so merging settings
+    # cannot give one operation two different strings.
     data = {
-        "schema_version": 1,
-        "source": "pymatgen.symmetry.groups.SpaceGroup general-position symmetry operations",
+        "schema_version": 2,
+        "source": "spglib Hall-symbol database, all 530 settings, merged per space-group number",
         "space_groups": {},
     }
-    for number in range(1, 231):
-        space_group = SpaceGroup.from_int_number(number)
-        operations = []
-        for operation in sorted(space_group.symmetry_ops, key=lambda op: op.as_xyz_str()):
-            operations.append(
+    for hall_number in range(1, 531):
+        space_group_type = spglib.get_spacegroup_type(hall_number)
+        number = int(space_group_type.number)
+        group = data["space_groups"].setdefault(
+            str(number),
+            {
+                "number": number,
+                "symbol": space_group_type.international_short,
+                "settings": [],
+                "operations": {},
+            },
+        )
+        group["settings"].append(
+            {
+                "hall_number": hall_number,
+                "hall_symbol": space_group_type.hall_symbol,
+                "choice": space_group_type.choice,
+            }
+        )
+        symmetry = spglib.get_symmetry_from_database(hall_number)
+        for rotation, translation in zip(symmetry["rotations"], symmetry["translations"]):
+            translation = np.mod(np.asarray(translation, dtype=float), 1.0)
+            translation[np.isclose(translation, 1.0)] = 0.0
+            operation = SymmOp.from_rotation_and_translation(rotation, translation)
+            xyz = operation.as_xyz_str()
+            group["operations"].setdefault(
+                xyz,
                 {
-                    "xyz": operation.as_xyz_str(),
-                    "W": operation.rotation_matrix.astype(int).tolist(),
-                    "t": [float(value) for value in operation.translation_vector],
-                }
+                    "xyz": xyz,
+                    "W": np.asarray(rotation, dtype=int).tolist(),
+                    "t": [float(value) for value in translation],
+                },
             )
-        data["space_groups"][str(number)] = {
-            "number": number,
-            "symbol": space_group.symbol,
-            "operation_count": len(operations),
-            "operations": operations,
-        }
+
+    for group in data["space_groups"].values():
+        operations = sorted(group["operations"].values(), key=lambda item: item["xyz"])
+        group["operations"] = operations
+        group["operation_count"] = len(operations)
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(

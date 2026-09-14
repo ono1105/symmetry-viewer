@@ -20,7 +20,7 @@
       },
       "space_group_generators": [
         "S4",
-        "C3"
+        "3_2"
       ],
       "point_group_generators": [
         "S4",
@@ -1867,11 +1867,11 @@
       },
       {
         "index": 32,
-        "label": "32: 3 rotation_3",
-        "kind": "rotation_3",
+        "label": "32: 3_? screw_3",
+        "kind": "screw_3",
         "order": 3,
         "angle_deg": 120.00000000000001,
-        "symbol": "3",
+        "symbol": "3_?",
         "matrix_frac": [
           [
             0.0,
@@ -2179,11 +2179,11 @@
       },
       {
         "index": 38,
-        "label": "38: 3 rotation_3",
-        "kind": "rotation_3",
+        "label": "38: 3_? screw_3",
+        "kind": "screw_3",
         "order": 3,
         "angle_deg": 120.00000000000001,
-        "symbol": "3",
+        "symbol": "3_?",
         "matrix_frac": [
           [
             0.0,
@@ -2283,11 +2283,11 @@
       },
       {
         "index": 40,
-        "label": "40: 3 rotation_3",
-        "kind": "rotation_3",
+        "label": "40: 3_? screw_3",
+        "kind": "screw_3",
         "order": 3,
         "angle_deg": 120.00000000000001,
-        "symbol": "3",
+        "symbol": "3_?",
         "matrix_frac": [
           [
             0.0,
@@ -2387,11 +2387,11 @@
       },
       {
         "index": 42,
-        "label": "42: 3 rotation_3",
-        "kind": "rotation_3",
+        "label": "42: 3_? screw_3",
+        "kind": "screw_3",
         "order": 3,
         "angle_deg": 120.00000000000001,
-        "symbol": "3",
+        "symbol": "3_?",
         "matrix_frac": [
           [
             0.0,
@@ -2543,11 +2543,11 @@
       },
       {
         "index": 45,
-        "label": "45: m mirror",
-        "kind": "mirror",
+        "label": "45: g glide",
+        "kind": "glide",
         "order": 2,
         "angle_deg": null,
-        "symbol": "m",
+        "symbol": "g",
         "matrix_frac": [
           [
             1.0,
@@ -3115,11 +3115,11 @@
       },
       {
         "index": 56,
-        "label": "56: 3 rotation_3",
-        "kind": "rotation_3",
+        "label": "56: 3_? screw_3",
+        "kind": "screw_3",
         "order": 3,
         "angle_deg": 120.00000000000001,
-        "symbol": "3",
+        "symbol": "3_?",
         "matrix_frac": [
           [
             0.0,
@@ -3219,11 +3219,11 @@
       },
       {
         "index": 58,
-        "label": "58: 3 rotation_3",
-        "kind": "rotation_3",
+        "label": "58: 3_? screw_3",
+        "kind": "screw_3",
         "order": 3,
         "angle_deg": 120.00000000000001,
-        "symbol": "3",
+        "symbol": "3_?",
         "matrix_frac": [
           [
             0.0,
@@ -3375,11 +3375,11 @@
       },
       {
         "index": 61,
-        "label": "61: m mirror",
-        "kind": "mirror",
+        "label": "61: g glide",
+        "kind": "glide",
         "order": 2,
         "angle_deg": null,
-        "symbol": "m",
+        "symbol": "g",
         "matrix_frac": [
           [
             0.0,
@@ -3531,11 +3531,11 @@
       },
       {
         "index": 64,
-        "label": "64: 3 rotation_3",
-        "kind": "rotation_3",
+        "label": "64: 3_? screw_3",
+        "kind": "screw_3",
         "order": 3,
         "angle_deg": 120.00000000000001,
-        "symbol": "3",
+        "symbol": "3_?",
         "matrix_frac": [
           [
             0.0,
@@ -3739,11 +3739,11 @@
       },
       {
         "index": 68,
-        "label": "68: 3 rotation_3",
-        "kind": "rotation_3",
+        "label": "68: 3_? screw_3",
+        "kind": "screw_3",
         "order": 3,
         "angle_deg": 120.00000000000001,
-        "symbol": "3",
+        "symbol": "3_?",
         "matrix_frac": [
           [
             0.0,
@@ -4207,11 +4207,11 @@
       },
       {
         "index": 77,
-        "label": "77: m mirror",
-        "kind": "mirror",
+        "label": "77: g glide",
+        "kind": "glide",
         "order": 2,
         "angle_deg": null,
-        "symbol": "m",
+        "symbol": "g",
         "matrix_frac": [
           [
             0.0,
@@ -4363,11 +4363,11 @@
       },
       {
         "index": 80,
-        "label": "80: 3 rotation_3",
-        "kind": "rotation_3",
+        "label": "80: 3_? screw_3",
+        "kind": "screw_3",
         "order": 3,
         "angle_deg": 120.00000000000001,
-        "symbol": "3",
+        "symbol": "3_?",
         "matrix_frac": [
           [
             0.0,
@@ -4571,11 +4571,11 @@
       },
       {
         "index": 84,
-        "label": "84: 3 rotation_3",
-        "kind": "rotation_3",
+        "label": "84: 3_? screw_3",
+        "kind": "screw_3",
         "order": 3,
         "angle_deg": 120.00000000000001,
-        "symbol": "3",
+        "symbol": "3_?",
         "matrix_frac": [
           [
             0.0,
@@ -4779,11 +4779,11 @@
       },
       {
         "index": 88,
-        "label": "88: 3 rotation_3",
-        "kind": "rotation_3",
+        "label": "88: 3_? screw_3",
+        "kind": "screw_3",
         "order": 3,
         "angle_deg": 120.00000000000001,
-        "symbol": "3",
+        "symbol": "3_?",
         "matrix_frac": [
           [
             0.0,
@@ -5091,11 +5091,11 @@
       },
       {
         "index": 94,
-        "label": "94: 3 rotation_3",
-        "kind": "rotation_3",
+        "label": "94: 3_? screw_3",
+        "kind": "screw_3",
         "order": 3,
         "angle_deg": 120.00000000000001,
-        "symbol": "3",
+        "symbol": "3_?",
         "matrix_frac": [
           [
             0.0,
@@ -5794,7 +5794,7 @@
           0.5773502691896257,
           0.577350269189626
         ],
-        "label": "3x2",
+        "label": "3_?x2",
         "operation_indices": [
           32,
           88
@@ -5811,7 +5811,7 @@
           0.5773502691896257,
           0.577350269189626
         ],
-        "label": "3x2",
+        "label": "3_?x2",
         "operation_indices": [
           32,
           88
@@ -5828,7 +5828,7 @@
           0.5773502691896257,
           0.577350269189626
         ],
-        "label": "3x2",
+        "label": "3_?x2",
         "operation_indices": [
           32,
           88
@@ -5896,7 +5896,7 @@
           0.5773502691896257,
           -0.5773502691896257
         ],
-        "label": "3x2",
+        "label": "3, 3_?",
         "operation_indices": [
           36,
           94
@@ -5913,7 +5913,7 @@
           0.5773502691896257,
           -0.5773502691896257
         ],
-        "label": "3x2",
+        "label": "3, 3_?",
         "operation_indices": [
           36,
           94
@@ -5930,7 +5930,7 @@
           0.5773502691896257,
           -0.5773502691896257
         ],
-        "label": "3x2",
+        "label": "3, 3_?",
         "operation_indices": [
           36,
           94
@@ -5947,7 +5947,7 @@
           -0.5773502691896258,
           -0.577350269189626
         ],
-        "label": "3x2",
+        "label": "3, 3_?",
         "operation_indices": [
           38,
           90
@@ -5964,7 +5964,7 @@
           -0.5773502691896258,
           -0.577350269189626
         ],
-        "label": "3x2",
+        "label": "3, 3_?",
         "operation_indices": [
           38,
           90
@@ -5981,7 +5981,7 @@
           -0.5773502691896258,
           -0.577350269189626
         ],
-        "label": "3x2",
+        "label": "3, 3_?",
         "operation_indices": [
           38,
           90
@@ -5998,7 +5998,7 @@
           0.5773502691896258,
           0.5773502691896258
         ],
-        "label": "3x2",
+        "label": "3_?x2",
         "operation_indices": [
           40,
           56
@@ -6015,7 +6015,7 @@
           0.5773502691896258,
           0.5773502691896258
         ],
-        "label": "3x2",
+        "label": "3_?x2",
         "operation_indices": [
           40,
           56
@@ -6032,7 +6032,7 @@
           0.5773502691896258,
           0.5773502691896258
         ],
-        "label": "3x2",
+        "label": "3_?x2",
         "operation_indices": [
           40,
           56
@@ -6049,7 +6049,7 @@
           -0.577350269189626,
           -0.5773502691896258
         ],
-        "label": "3x2",
+        "label": "3, 3_?",
         "operation_indices": [
           42,
           62
@@ -6066,7 +6066,7 @@
           -0.577350269189626,
           -0.5773502691896258
         ],
-        "label": "3x2",
+        "label": "3, 3_?",
         "operation_indices": [
           42,
           62
@@ -6083,7 +6083,7 @@
           -0.577350269189626,
           -0.5773502691896258
         ],
-        "label": "3x2",
+        "label": "3, 3_?",
         "operation_indices": [
           42,
           62
@@ -6100,7 +6100,7 @@
           -0.577350269189626,
           0.5773502691896258
         ],
-        "label": "3x2",
+        "label": "3, 3_?",
         "operation_indices": [
           44,
           58
@@ -6117,7 +6117,7 @@
           -0.577350269189626,
           0.5773502691896258
         ],
-        "label": "3x2",
+        "label": "3, 3_?",
         "operation_indices": [
           44,
           58
@@ -6134,7 +6134,7 @@
           -0.577350269189626,
           0.5773502691896258
         ],
-        "label": "3x2",
+        "label": "3, 3_?",
         "operation_indices": [
           44,
           58
@@ -6394,7 +6394,7 @@
           0.5773502691896258,
           0.5773502691896258
         ],
-        "label": "3x2",
+        "label": "3_?x2",
         "operation_indices": [
           64,
           80
@@ -6411,7 +6411,7 @@
           0.5773502691896258,
           0.5773502691896258
         ],
-        "label": "3x2",
+        "label": "3_?x2",
         "operation_indices": [
           64,
           80
@@ -6428,7 +6428,7 @@
           0.5773502691896258,
           0.5773502691896258
         ],
-        "label": "3x2",
+        "label": "3_?x2",
         "operation_indices": [
           64,
           80
@@ -6496,7 +6496,7 @@
           -0.577350269189626,
           0.5773502691896258
         ],
-        "label": "3x2",
+        "label": "3, 3_?",
         "operation_indices": [
           68,
           82
@@ -6513,7 +6513,7 @@
           -0.577350269189626,
           0.5773502691896258
         ],
-        "label": "3x2",
+        "label": "3, 3_?",
         "operation_indices": [
           68,
           82
@@ -6530,7 +6530,7 @@
           -0.577350269189626,
           0.5773502691896258
         ],
-        "label": "3x2",
+        "label": "3, 3_?",
         "operation_indices": [
           68,
           82
@@ -6547,7 +6547,7 @@
           0.5773502691896258,
           -0.5773502691896257
         ],
-        "label": "3x2",
+        "label": "3, 3_?",
         "operation_indices": [
           70,
           84
@@ -6564,7 +6564,7 @@
           0.5773502691896258,
           -0.5773502691896257
         ],
-        "label": "3x2",
+        "label": "3, 3_?",
         "operation_indices": [
           70,
           84
@@ -6581,7 +6581,7 @@
           0.5773502691896258,
           -0.5773502691896257
         ],
-        "label": "3x2",
+        "label": "3, 3_?",
         "operation_indices": [
           70,
           84
@@ -6802,7 +6802,7 @@
           -0.7071067811865474,
           0.0
         ],
-        "label": "mx2",
+        "label": "g, m",
         "operation_indices": [
           5,
           77
@@ -6829,7 +6829,7 @@
           -0.7071067811865474,
           0.0
         ],
-        "label": "mx2",
+        "label": "g, m",
         "operation_indices": [
           5,
           77
@@ -6964,7 +6964,7 @@
           -7.041364024482819e-17,
           -0.7071067811865474
         ],
-        "label": "mx2",
+        "label": "g, m",
         "operation_indices": [
           13,
           61
@@ -6991,7 +6991,7 @@
           -7.041364024482819e-17,
           -0.7071067811865474
         ],
-        "label": "mx2",
+        "label": "g, m",
         "operation_indices": [
           13,
           61
@@ -7072,7 +7072,7 @@
           0.7071067811865476,
           -0.7071067811865474
         ],
-        "label": "mx2",
+        "label": "g, m",
         "operation_indices": [
           21,
           45
@@ -7099,7 +7099,7 @@
           0.7071067811865476,
           -0.7071067811865474
         ],
-        "label": "mx2",
+        "label": "g, m",
         "operation_indices": [
           21,
           45
@@ -14858,7 +14858,7 @@
       {
         "mode": "crystal",
         "operation_index": 32,
-        "operation_kind": "rotation_3",
+        "operation_kind": "screw_3",
         "complete": true,
         "atom_to_atom": [
           3,
@@ -16178,7 +16178,7 @@
       {
         "mode": "crystal",
         "operation_index": 38,
-        "operation_kind": "rotation_3",
+        "operation_kind": "screw_3",
         "complete": true,
         "atom_to_atom": [
           3,
@@ -16618,7 +16618,7 @@
       {
         "mode": "crystal",
         "operation_index": 40,
-        "operation_kind": "rotation_3",
+        "operation_kind": "screw_3",
         "complete": true,
         "atom_to_atom": [
           3,
@@ -17058,7 +17058,7 @@
       {
         "mode": "crystal",
         "operation_index": 42,
-        "operation_kind": "rotation_3",
+        "operation_kind": "screw_3",
         "complete": true,
         "atom_to_atom": [
           3,
@@ -17718,7 +17718,7 @@
       {
         "mode": "crystal",
         "operation_index": 45,
-        "operation_kind": "mirror",
+        "operation_kind": "glide",
         "complete": true,
         "atom_to_atom": [
           3,
@@ -20138,7 +20138,7 @@
       {
         "mode": "crystal",
         "operation_index": 56,
-        "operation_kind": "rotation_3",
+        "operation_kind": "screw_3",
         "complete": true,
         "atom_to_atom": [
           2,
@@ -20578,7 +20578,7 @@
       {
         "mode": "crystal",
         "operation_index": 58,
-        "operation_kind": "rotation_3",
+        "operation_kind": "screw_3",
         "complete": true,
         "atom_to_atom": [
           2,
@@ -21238,7 +21238,7 @@
       {
         "mode": "crystal",
         "operation_index": 61,
-        "operation_kind": "mirror",
+        "operation_kind": "glide",
         "complete": true,
         "atom_to_atom": [
           2,
@@ -21898,7 +21898,7 @@
       {
         "mode": "crystal",
         "operation_index": 64,
-        "operation_kind": "rotation_3",
+        "operation_kind": "screw_3",
         "complete": true,
         "atom_to_atom": [
           2,
@@ -22778,7 +22778,7 @@
       {
         "mode": "crystal",
         "operation_index": 68,
-        "operation_kind": "rotation_3",
+        "operation_kind": "screw_3",
         "complete": true,
         "atom_to_atom": [
           2,
@@ -24758,7 +24758,7 @@
       {
         "mode": "crystal",
         "operation_index": 77,
-        "operation_kind": "mirror",
+        "operation_kind": "glide",
         "complete": true,
         "atom_to_atom": [
           1,
@@ -25418,7 +25418,7 @@
       {
         "mode": "crystal",
         "operation_index": 80,
-        "operation_kind": "rotation_3",
+        "operation_kind": "screw_3",
         "complete": true,
         "atom_to_atom": [
           1,
@@ -26298,7 +26298,7 @@
       {
         "mode": "crystal",
         "operation_index": 84,
-        "operation_kind": "rotation_3",
+        "operation_kind": "screw_3",
         "complete": true,
         "atom_to_atom": [
           1,
@@ -27178,7 +27178,7 @@
       {
         "mode": "crystal",
         "operation_index": 88,
-        "operation_kind": "rotation_3",
+        "operation_kind": "screw_3",
         "complete": true,
         "atom_to_atom": [
           1,
@@ -28498,7 +28498,7 @@
       {
         "mode": "crystal",
         "operation_index": 94,
-        "operation_kind": "rotation_3",
+        "operation_kind": "screw_3",
         "complete": true,
         "atom_to_atom": [
           1,

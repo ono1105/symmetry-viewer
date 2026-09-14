@@ -312,26 +312,6 @@ def find_fixed_solutions(W, t, search_range=2, tol=1e-7):
 
     return deduplicate_points(points, tol=tol)
 
-def find_one_fixed_solution(W, t, search_range=2, tol=1e-7):
-    """
-    固定点が存在するかだけを調べる。
-    """
-    W = np.asarray(W, dtype=float)
-    t = np.asarray(t, dtype=float)
-
-    A = np.eye(3) - W
-    rhs = integer_offsets(search_range) + t
-
-    pinv = cached_pinv(A)
-    solutions = rhs @ pinv.T
-    residuals = solutions @ A.T - rhs
-    valid_indices = np.flatnonzero(np.linalg.norm(residuals, axis=1) < tol)
-
-    if len(valid_indices) == 0:
-        return False, None
-
-    return True, wrap_frac(solutions[valid_indices[0]])
-
 def find_invariant_element_points(W, t, invariant_basis, search_range=2, tol=1e-7):
     """
     軸・面などの不変集合上の代表点を全列挙する。
@@ -525,9 +505,28 @@ def deduplicate_planes(planes, search_range=2, tol=1e-7):
 
     return unique
 
+def intrinsic_translation(W, t, order):
+    """
+    固有並進（軸・面に沿った並進） (1/n) Σ W^k t。
+    """
+    W = np.asarray(W, dtype=float)
+    total = np.zeros(3)
+    power = np.eye(3)
+    for _ in range(order):
+        total += power @ np.asarray(t, dtype=float)
+        power = power @ W
+    return total / order
+
+
 def classify_operation(W, t, search_range=2):
     """
     W, t から対称操作の種類を分類する。
+
+    回転とらせん、鏡映と映進は、その操作自身が軸・面に沿って進むか（固有並進が
+    0 でないか）で分ける。進む量が格子並進（面心の (1/2,1/2,0) など）でも、操作と
+    しては進むので、らせん・映進とする（国際表も n(1/2,1/2,0) と書く）。整数の
+    格子並進を足して固定点を探すと、[111] の3回回転に a を足した 3_1 まで回転に
+    数えてしまう。
     """
     W = np.asarray(W, dtype=int)
     t = np.asarray(t, dtype=float)
@@ -550,9 +549,8 @@ def classify_operation(W, t, search_range=2):
 
     if det == 1:
         angle = rotation_angle_deg(W)
-        fixed_exists, _ = find_one_fixed_solution(W, t, search_range=search_range)
 
-        if fixed_exists:
+        if np.allclose(intrinsic_translation(W, t, order), 0.0, atol=TOL):
             return f"rotation_{order}", det, tr, order, angle
         else:
             return f"screw_{order}", det, tr, order, angle
@@ -560,9 +558,7 @@ def classify_operation(W, t, search_range=2):
     if det == -1:
         # 鏡映・映進: 固有値が 1, 1, -1 のタイプ
         if order == 2 and tr == 1:
-            fixed_exists, _ = find_one_fixed_solution(W, t, search_range=search_range)
-
-            if fixed_exists:
+            if np.allclose(intrinsic_translation(W, t, order), 0.0, atol=TOL):
                 return "mirror", det, tr, order, None
             else:
                 return "glide", det, tr, order, None
